@@ -1,9 +1,9 @@
-pos_count = 0;
-pos_x = 350;
-pos_y = 250;
+var pos_count = 0;
+var pos_x = 350;
+var pos_y = 250;
 
 $(document).ready(function(){
-	/*svg = d3.select(".main-layout").append("svg").attr("id", "main-svg");
+	/*var svg = d3.select(".main-layout").append("svg").attr("id", "main-svg");
 	svg.append("rect").attr({
 		'width': 400,
 		'height': 200,
@@ -20,7 +20,7 @@ $(document).ready(function(){
 			if (pos_count == 0) pos_x = 350;
 			else pos_x += 150;
 		}
-		txt = svg.append("text").attr({
+		var txt = svg.append("text").attr({
 			'x': pos_x,
 			'y': pos_y
 		})

@@ -36,7 +36,9 @@ urlpatterns = [
     url(r'^charge/$',charge),
     url(r'^missions/$',missions),
     url(r'^statistic/$',statistic),
-    url(r'^battle/$',battle)
+    url(r'^battle/$',battle),
+    url(r'^setting/$', setting),
+    url(r'^income/$', income)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

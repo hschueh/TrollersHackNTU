@@ -41,6 +41,10 @@ def profile(request):
 def setting(request):
     return render_to_response('setting.html',RequestContext(request,locals()))
 
+def income(request):
+    return render_to_response('income.html',RequestContext(request,locals()))
+
+
 
 
 
