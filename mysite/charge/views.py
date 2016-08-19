@@ -35,6 +35,15 @@ def statistic(request):
 def battle(request):
     return render_to_response('battle.html',RequestContext(request,locals()))
 
+def profile(request):
+    return render_to_response('profile.html',RequestContext(request,locals()))
+
+def setting(request):
+    return render_to_response('setting.html',RequestContext(request,locals()))
+
+def income(request):
+    return render_to_response('income.html',RequestContext(request,locals()))
+
 
 
 
