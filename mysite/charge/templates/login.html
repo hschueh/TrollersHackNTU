@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block title %} TaaD {%endblock%}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">Login</h1>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+
+<form action="{% url 'django.contrib.auth.views.login' %}" method="POST">{% csrf_token %}
+ <div class="field">
+ <table>
+    {{form.as_table}}
+ </table>
+ <input type="submit" value="login" class="btn btn-primary"/>
+ <input type="hidden" name="next" value="{{ next }}"/>
+ <a href="/accounts/register/">register</a>
+ </div>
+</form>
+{%endblock%}
