@@ -76,41 +76,22 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/about/">About</a>
-                    </li>
-                    <li>
-                        <a href="/services/">Services</a>
-                    </li>
-					<li>
-                        <a href="/price/">Pricing</a>
-                    </li>
+                    
 					{% if request.user.is_authenticated %}
+                    <li>
+                        <a href="/missions/">Missions</a>
+                    </li>
+                    <li>
+                        <a href="/battle/">Boss</a>
+                    </li>
+                    <li>
+                        <a href="/statistic/">Statistics</a>
+                    </li>
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{request.user}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-							<li>
-                                <a href="/upload/">Upload</a>
-                            </li>
-							<li>
-                                <a href="/report/">Report</a>
-                            </li>
-                            {% if perms.test_manager.change_device %}
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="/device/">Device Management</a>
-                                </li>
-                            {% endif %}
-                            {% if perms.test_manager.change_project %}
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="/project/">Total Projects</a>
-                                </li>
-                                <li>
-                                    <a href="/user/">Total Users</a>
-                                </li>
-                            {% endif %}
-							<li class="divider"></li>
+							
+							<!-- <li class="divider"></li> -->
                             <li>
                                 <a href="/accounts/profile/">Profile</a>
                             </li>
