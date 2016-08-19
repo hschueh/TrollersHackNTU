@@ -15,8 +15,22 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.auth.views import login, logout
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+admin.autodiscover()
+
+from charge.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$',index),
+    url(r'^index/$',index),
+    url(r'^accounts/login/$',login,{'template_name':'login.html'}),
+    url(r'^accounts/logout/$',logout,{'template_name':'logout.html'}),
+    url(r'^accounts/register/$',register),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

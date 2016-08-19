@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block title %} TaaD {%endblock%}
+{% block content %}
+
+<h1>Login</h1>
+<form action="" method="POST">{% csrf_token %}
+ <div class="field">
+            {{ form.account.errors }}
+            <label for="id_account">Account:</label>
+            {{ form.account }}
+        </div>
+        <div class="field">
+            {{ form.password.errors }}
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </div>
+ <input type="submit" value="login" class="btn btn-primary"/>
+ <a href="/accounts/register">register</a>
+
+</form>
+{%endblock%}
