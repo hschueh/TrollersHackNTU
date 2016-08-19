@@ -22,3 +22,24 @@ def register(request):
     else:
         form = UserCreationForm
     return render_to_response('register.html',RequestContext(request,locals()))
+
+def charge(request):
+    return render_to_response('charge.html',RequestContext(request,locals()))
+
+def missions(request):
+    return render_to_response('missions.html',RequestContext(request,locals()))
+
+def statistic(request):
+    return render_to_response('statistic.html',RequestContext(request,locals()))
+
+def battle(request):
+    return render_to_response('battle.html',RequestContext(request,locals()))
+
+
+
+
+
+
+
+
+
