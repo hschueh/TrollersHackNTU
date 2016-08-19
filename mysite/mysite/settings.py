@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = "/index/"
+
+LOGIN_URL = "/accounts/login/"
+
 
 # Application definition
 
@@ -120,6 +124,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+# Session settings
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+SESSION_COOKIE_AGE = 1800     #30 mins
 
 
 # Static files (CSS, JavaScript, Images)
