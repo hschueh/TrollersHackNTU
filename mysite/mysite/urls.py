@@ -31,6 +31,13 @@ urlpatterns = [
     url(r'^accounts/login/$',login,{'template_name':'login.html'}),
     url(r'^accounts/logout/$',logout,{'template_name':'logout.html'}),
     url(r'^accounts/register/$',register),
+    url(r'^charge/$',charge),
+    url(r'^missions/$',missions),
+    url(r'^statistic/$',statistic),
+    url(r'^battle/$',battle),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+
