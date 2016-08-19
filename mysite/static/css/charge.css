@@ -1,0 +1,49 @@
+html{
+	font-family: 微軟正黑體;
+}
+
+.btn-block{
+	position: relative;
+}
+
+.date-block{
+	font-size: 40px;
+
+}
+
+
+.date{
+	text-align: center;
+	font-size: 40px;
+	height: 60px;
+	width: 66%;
+	border: none;
+	background-color: #f8f8f8;
+	cursor: pointer;
+	box-shadow: none;
+}
+
+
+.plus-btn{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: 2px solid black;
+	font-size: 40px;
+	line-height: 30px;
+	margin: auto;
+	padding-left: 6px;
+	cursor: pointer;
+}
+
+.main-btn{
+	font-size: 20px;
+	text-align: center;
+	height: 50px;
+	line-height:50px;
+	cursor: pointer;
+}
+
+#charge-btn{
+	background-color: #808080;
+}

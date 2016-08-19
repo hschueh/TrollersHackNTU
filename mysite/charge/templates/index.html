@@ -5,156 +5,25 @@
 {% block content %}
 <!-- Marketing Icons Section -->
 {% load staticfiles %}
-<link href="{% static 'css/index.css' %}" rel="stylesheet">
-<script src="{% static 'js/index.js' %}"></script>
 
-<div class="main-layout"></div>
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">
-			Welcome to Test as a Dragon
-		</h1>
-	</div>
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4><i class="fa fa-fw fa-check"></i> Various Testing Services</h4>
-			</div>
-			<div class="panel-body">
-				<p>We provide lots of the different testing services for Android Apps.<br>
-                <ol>
-                    <li><strong>AQuA testing</strong>, the baseline testing criteria for Android applications</li><br>
-                    <li><strong>General automatic testing</strong>, includes "coverage testing","memory testing", and "common sense testing".</li><br>
-                    <li><strong>Manual testing</strong>, includes "UI/UX"</li>
-                </ol>
-                </p>
-				<a href="/services/" class="btn btn-default">Learn More</a>
-			</div>
+		<div class="index-title">
+			今天你智帳了嗎？
 		</div>
+		{% if not request.user.is_authenticated %}
+		<div>Please <a href="/accounts/login/">Log In</a></div>
+		{% endif %}
 	</div>
-    <div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4><i class="fa fa-fw fa-compass"></i> Various Testing Platforms</h4>
-			</div>
-			<div class="panel-body">
-				<p>
-                We provide a big <strong>test farm</strong> for users to test whether your
-                application works well on the most Android platforms.<br><br>
-                We currently provide:<br>
-                <ul>
-                    <li><strong>{{deviceNum}}</strong> different Android versions</li><br>
-                    <li><strong>{{versionNum}}</strong> different Android mobile devices</li><br>
-                </ul>
-
-                </p>
-				<a href="/platforms/" class="btn btn-default">Learn More</a>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4><i class="fa fa-fw fa-gift"></i> Various Testing Reports</h4>
-			</div>
-			<div class="panel-body">
-				<p>
-                Each testing service will provide a testing report containing the following:<br>
-                <ol>
-                    <li>some <strong>error exceptions</strong> or error messages</li><br>
-                    <li><strong>screenshots</strong> of the testing trace</li><br>
-                    <li><strong>testing details</strong></li><br>
-                </ol>
-                </p>
-				<a href="/demo_report/" class="btn btn-default">Learn More</a>
-			</div>
-		</div>
-	</div>
+	
 </div>
-<!-- /.row -->
 
-<!-- Portfolio Section -->
-<!--
-<div class="row">
-	<div class="col-lg-12">
-		<h2 class="page-header">Portfolio Heading</h2>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-	<div class="col-md-4 col-sm-6">
-		<a href="portfolio-item.html">
-			<img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-		</a>
-	</div>
-</div>
--->
-<!-- /.row -->
-
-<!-- Features Section -->
-<div class="row">
-	<div class="col-lg-12">
-		<h2 class="page-header">TaaD Features</h2>
-	</div>
-	<div class="col-md-6">
-		<p>The services provided by TaaD include:</p>
-		<ol>
-			<li>AQuA Testing</li>
-			<li>Other Testing</li>
-			<li>Provide various Android versions for users.</li>
-			<li>Also provide lots of different mobile devices.</li>
-			<li>Email Notification</li>
-		</ol>
-		<p> App Quality Alliance (AQuA) is a non-profit group headed by members and knowledge contributors since AQuA's inception, working with the industry to improve the quality of mobile apps.</p>
-        <p> Passing through some AQuA testing criteria can enhence the quality of your applications.</p>
-	</div>
-	<div class="col-md-6">
-		<img class="img-responsive" src="{{STATIC_URL}}img/workflow.jpg" alt="The workflow of TaaD">
-	</div>
-</div>
-<!-- /.row -->
-
-<hr>
-
-<!-- Call to Action Section -->
-<div class="well">
-	<div class="row">
-		<div class="col-md-12">
-			<p>Click the <strong>"Start to Test"</strong> button to upload the APK file and set your requirements.<br>
-                Or you can click the <strong>"View Reports"</strong> to view your previous reports.</p>
-		</div>
-		<div class="col-md-6">
-			<a class="btn btn-lg btn-primary btn-block" href="/upload/">Start to Test</a>
-		</div>
-		<div class="col-md-6">
-			<a class="btn btn-lg btn-info btn-block" href="/report/">View Reports</a>
-		</div>
-	</div>
-</div>
-<hr>
-<!-- /.container -->
-
+<style>
+	.index-title{
+		font-size: 30px;
+		font-family: 微軟正黑體;
+		color: blue;
+	}
+</style>
 
 {%endblock%}
