@@ -1,4 +1,4 @@
-var origin_btn_id = "charge";
+var origin_btn_id = "income";
 
 var today = new Date();
 var dd = today.getDate();
@@ -27,7 +27,7 @@ function daysInMonth(month,year) {
 
 $(document).ready(function(){
 	$(".main-btn").css("background-color", "#f8f8f8");
-	$("#charge-btn").css("background-color", "#808080");
+	$("#income-btn").css("background-color", "#808080");
 
 	$(".main-btn").click(function(){
 		var id = $(this).attr("id").split("-")[0];
