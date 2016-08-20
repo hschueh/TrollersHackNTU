@@ -27,6 +27,15 @@ $(document).ready(function(){
 		'image-rendering':'optimizeQuality'
 	});
 
+	
+	var boss = svg.append("svg:image").attr({
+		'width': rect.width/370*220,
+		'height': rect.width/370*175,
+		'x': 90,
+		'y': 125 + padding_top,
+		'xlink:href': static_img_url + pic_dict['boss']
+	});
+	
 
 	var bg_ground = svg.append("svg:image").attr({
 		'width': rect.width,
@@ -35,15 +44,6 @@ $(document).ready(function(){
 		'y': 100 + padding_top,
 		'xlink:href': bg_pic_dict['bg_ground'],
 		'image-rendering':'optimizeQuality'
-	});
-
-	
-	var boss = svg.append("svg:image").attr({
-		'width': 176,
-		'height': 140,
-		'x': 90,
-		'y': 160 + padding_top,
-		'xlink:href': static_img_url + pic_dict['boss']
 	});
 
 	var wpn = svg.append("svg:image").attr({
@@ -65,6 +65,20 @@ $(document).ready(function(){
 			else
 				return static_img_url + "hero_girl.png";
 		}
+	});
+	
+	var btn = svg.append("svg:image").attr({
+		'width': 100,
+		'height': 100,
+		'x': rect.width-100,
+		'y': 300,
+		'xlink:href': static_img_url + "btn_monsterDex.png",
+		'id':'btnMonsterDex'
+	});
+	
+	
+	$('#btnMonsterDex').click(function(){
+		window.location.href = "/monster_dex/";
 	});
 
 	window.setInterval(function(){

@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block title %} Wise Ledger {%endblock%}
+{% block content %}
+
+{% load staticfiles %}
+
+<link href="{% static 'css/monster_dex.css' %}" rel="stylesheet">
+<script src="{% static 'js/monster_dex.js' %}"></script>
+
+<script>
+	var pic_dict = {};
+	var current_monster_id = {{current_monster_id}};
+</script>
+
+<div>
+  <a href="/battle/">
+      <img width = "39px" style="display:table" src="{% static 'img/btn_back.png' %}">
+  </a>
+</div>
+<div id = "main_scroller"  style="overflow: hidden;width: 80%;margin: 0 auto;">
+	{% for monster in monsters %}
+	<div class = "row_custom">
+	{% if monster.id > current_monster_id %}
+	???
+	{% else %}
+	{{monster.name}}
+	{% endif %}
+	<img class="pics" src="/static/img/{{ monster.pngFile }}"></img>
+	</div>
+	{% endfor %}
+</div>
+
+{%endblock%}
