@@ -108,8 +108,11 @@ def missions(request):
             if mission.status != "success" and mission.status != "failed":
                 print("[Warning] Unknown mission status.")
 
-    missionDictList = json.dumps(missionDictList)
-    return render_to_response('missions.html',RequestContext(request,locals()))
+    if request.method == "GET":
+        return HttpResponse(json.dumps(missionDictList))
+        #missionDictList = json.dumps(missionDictList)
+    else:
+        return render_to_response('missions.html',RequestContext(request,locals()))
 
 @login_required
 def statistic(request,chargestate):
