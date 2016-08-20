@@ -112,6 +112,7 @@ def mission_data(request):
     missionDictList = []
     for mission in missions:
         tempDict = {}
+        tempDict["id"] = mission.id
         tempDict["status"] = mission.status
         tempDict["name"] = mission.name
         tempDict["missionType"] = mission.missionType
