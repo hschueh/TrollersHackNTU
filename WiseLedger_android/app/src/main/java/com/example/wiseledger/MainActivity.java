@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     MainActivity m_context = this;
     String token = "";
     Boolean m_firstTime = true;
-    String BASE_URL = "http://140.112.21.19:8000/"
+    String BASE_URL = "http://140.112.21.19:8000/";
+    // "http://1.34.217.78:3000/"
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                     CookieSyncManager.getInstance().sync();
-                }
-                else {
+                } else {
                     CookieManager cookieManager = CookieManager.getInstance();
                     cookieManager.setAcceptCookie(true);
                 }
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
         Bundle extra = getIntent().getExtras();
         if(extra != null) {
             String postFix = extra.getString("postFix");
