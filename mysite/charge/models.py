@@ -27,6 +27,7 @@ class Item(models.Model):
     duration = models.DecimalField(max_digits=3,decimal_places=0,default=0)
     expiredTime = models.DateTimeField(blank=True,default="0")
     cost = models.DecimalField(max_digits=5,decimal_places=0,default=0)
+    pngFile = models.CharField(max_length = 200,default="")
 
 class User_Item(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,)
