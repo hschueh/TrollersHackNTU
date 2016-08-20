@@ -179,7 +179,8 @@ def statistic_data(request,chargestate):
         tempDict = {}
         tempDict["name"] = cate
         tempDict["money"] = categorySum[cate]
-        dictList.append(tempDict)
+        if categorySum[cate] > 0:
+            dictList.append(tempDict)
 
     print(dictList)
     return HttpResponse(json.dumps(dictList))
