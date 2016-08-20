@@ -7,6 +7,10 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from charge.models import *
 
+API_KEY = "AIzaSyBnPCKUeUkrXIxvMuYA_uikaMe4Wgaw03Q"
+PKG_NAME = "com.example.wiseledger"
+
+
 # Create your views here.
 def index(request):
 
@@ -61,6 +65,16 @@ def create_record(request):
         return HttpResponse("Error occured!")
 
 
+def push_notify(token, title, message, postFix):
+    gcm = GCM(API_KEY)
+    registration_ids = [token]#"f4lCd6APSBg:APA91bHxplaOaWyL7xMoIK6vDtLNxWqjemFDaJvgtXFcYegXgD50_09lussUtR7K6NvGtdmX61qSHkiCy1a5YTG4m7wYeLoqtcN9n4HSCpEWBc2k1Gg5Yiow7qQpNndTV0SuTPE4oC0R"
+    notification = {
+        "title": title,
+        "message": message,
+        "postFix": postFix,
+    }
+    
+    response = gcm.json_request(registration_ids=registration_ids,data=notification,collapse_key='awesomeapp',restricted_package_name=PKG_NAME,priority='high',delay_while_idle=False)
 
 
 
