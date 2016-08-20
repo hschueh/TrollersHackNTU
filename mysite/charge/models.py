@@ -70,11 +70,13 @@ class ConsecutiveLoginMission(models.Model):
 
 class ConsecutiveConsumeMission(models.Model):
     mission = models.ForeignKey(Missions,on_delete=models.CASCADE,default=None)
-    days = models.DecimalField(max_digits=4,decimal_places=0)
-    required_days = models.DecimalField(max_digits=4,decimal_places=0)
+    expiredTime = models.DateTimeField(blank=True,default = None)
     targetCategory = models.ForeignKey(Category,on_delete=models.CASCADE,default=None)
     exp = models.DecimalField(max_digits=10,decimal_places=0)
     money = models.DecimalField(max_digits=10,decimal_places=0)
+    currentConsume = models.DecimalField(max_digits=10,decimal_places=0,default=0)
+    requiredConsume = models.DecimalField(max_digits=10,decimal_places=0,default=0)
+
 
 class ConsecutiveBudgetMission(models.Model):
     mission = models.ForeignKey(Missions,on_delete=models.CASCADE,default=None)
@@ -87,6 +89,7 @@ class ConsecutiveBudgetMission(models.Model):
 class MealMission(models.Model):
     mission = models.ForeignKey(Missions,on_delete=models.CASCADE,default=None)
     meal = models.CharField(max_length = 20)
+    expiredTime = models.DateTimeField(blank=True,default=None)
     exp = models.DecimalField(max_digits=10,decimal_places=0)
     money = models.DecimalField(max_digits=10,decimal_places=0)
 
