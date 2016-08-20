@@ -1,0 +1,75 @@
+html{
+	font-family: 微軟正黑體
+}
+
+.btn-block{
+	position: relative;
+}
+
+.date-block{
+	font-size: 40px;
+
+}
+
+
+.date{
+	text-align: center;
+	font-size: 40px;
+	height: 60px;
+	width: 66%;
+	border: none;
+	background-color: #f8f8f8 !important;
+	cursor: pointer;
+	box-shadow: none;
+}
+
+.date-nav{
+	cursor: pointer;
+}
+
+#charge-table{
+	height: 300px;
+	overflow: scroll;
+	text-align: center;
+}
+
+.plus-btn{
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	border: 2px solid black;
+	font-size: 40px;
+	line-height: 30px;
+	margin: auto;
+	padding-left: 6px;
+	cursor: pointer;
+}
+
+.main-btn{
+	font-size: 20px;
+	text-align: center;
+	height: 50px;
+	line-height:50px;
+	cursor: pointer;
+}
+
+#charge-btn{
+	background-color: #808080;
+}
+
+.niceButton{
+background:    #4c77c1;
+background:    -webkit-linear-gradient(#4c77c1, #4c77c1 50%, #3660aa 50%, #3660aa);
+background:    linear-gradient(#4c77c1, #4c77c1 50%, #3660aa 50%, #3660aa);
+border-radius: 6px;
+color:         #fff;
+display:       inline-block;
+padding:       11px 22px;
+font:          700 10px/1 "Droid Serif", serif;
+text-align:    center;
+text-shadow:   1px 1px 0 #444;
+}
+.normalSelection{
+
+font: 10px;	
+}

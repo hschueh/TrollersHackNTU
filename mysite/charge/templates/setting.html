@@ -1,7 +1,24 @@
 {% extends 'base.html'%}
-{% block title %} TaaD {%endblock%}
+{% block title %} Wise Ledger {%endblock%}
 {% block content %}
 
-<h1>Profile</h1>
+{% load staticfiles %}
+<link href="{% static 'css/setting.css' %}" rel="stylesheet">
+<script src="{% static 'js/setting.js' %}"></script>
+
+<h1 class="page-header">設定</h1>
+
+<h2 onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">新增類別</h2>
+<div class="row">
+<h2 class="normalSelection" style="padding-left:15px" >幣值 
+  <select name="Money" hspace="15">
+　<option value="Taiwan">NTD</option>
+　<option value="Europe">EURO</option>
+　<option value="USA">USD</option>
+</select>
+</h2>
+</div>
+<h2  onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">定期定額收入</h2>
+<h2  onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">密碼設定</h2>
 
 {%endblock%}
