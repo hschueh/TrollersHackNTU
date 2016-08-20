@@ -33,7 +33,10 @@ $(document).ready(function(){
 		var id = $(this).attr("id").split("-")[0];
 
 		if (id != origin_btn_id){
-			window.location.href = '/' + id + '/';
+			if (id == "statistic")
+				window.location.href = '/' + id + '/expense/';
+			else window.location.href = '/' + id + '/';
+
 			$("#" + origin_btn_id + "-btn").css("background-color", "#f8f8f8");
 			$("#" + id + "-btn").css("background-color", "#808080");
 		}		
