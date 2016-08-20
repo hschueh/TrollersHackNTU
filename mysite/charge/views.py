@@ -54,8 +54,13 @@ def calculator(request, chargestate):
 
 def create_record(request):
     if request.method == "POST":
-        post_data = request.POST.get("category")
-        print(post_data)
+        post_dict = request.POST.dict()
+        print("user id = ",request.user.id)
+        user = User.objects.get(id=request.user.id)
+        category = Category.objects.get(name=post_dict['category'])
+        record = Record(user=user,category=category,spend=post_dict['spend'],currency="NTD")
+        record.save()
+        print(post_dict)
         return HttpResponse("Create new record!")
     else:
         return HttpResponse("Error occured!")
