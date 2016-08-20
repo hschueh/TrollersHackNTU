@@ -7,7 +7,7 @@ var padding_top = 20;
 var static_img_url = '/static/img/';
 var hp_width = 374;
 var hp_height = 18;
-var now_hp_width = 374*currentHP/maxHP;
+var now_hp_width = hp_width*currentHP/maxHP;
 
 $(document).ready(function(){
 
@@ -103,19 +103,31 @@ $(document).ready(function(){
 		"y": 7,
 		"fill": "red"
 	});
+
+	var hp_txt = svg.append("text").attr({
+		"x": now_hp_width + 5,
+		"y": 20,
+		"fill": "orange"
+	})
+	.text(currentHP);
 	
 	window.setInterval(function(){
+
 		if(now_hp_width <= 0){
 			window.location.reload();
 		}
-		now_hp_width = now_hp_width - dps*hp_width/maxHP;
-		hp.transition().attr("width", now_hp_width);
+		else{
+			currentHP = currentHP - dps;
+			now_hp_width = now_hp_width - dps*hp_width/maxHP;
+			hp.transition().attr("width", now_hp_width);
+			hp_txt.transition().attr("width", now_hp_width + 5).text(currentHP);
+		}
 	}, 1000);
 
-	console.log(maxHP);
+	/*console.log(maxHP);
 	console.log(currentHP);
 	console.log(dps);
-	console.log(dps*hp_width/maxHP);
+	console.log(dps*hp_width/maxHP);*/
 
 	window.setInterval(function(){
 		// var parentOffset = $("#rect-btn").parent().offset(); 
