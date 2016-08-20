@@ -105,6 +105,7 @@ body{
 
 .ok-key.last{
 	margin-right: 0px;
+	cursor: pointer;
 }
 
 .key.action {
@@ -115,3 +116,7 @@ body{
 	background-color: #646060;
 }
 
+#Breakfast-btn{
+	background-color: #808080;
+	color: white;
+}

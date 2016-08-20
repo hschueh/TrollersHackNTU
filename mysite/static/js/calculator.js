@@ -1,10 +1,11 @@
-
+var now_category = "Breakfast";
 
 $(document).ready(function(){
 	//Dom is ready lets get the fun started.
 	var money = '';
 	var charge_state = $("#chargestate-var").attr("value");
 	console.log(charge_state);
+	var csrf_token = $("#csrf-var").attr("value");
 
 	var Calculator = {
 		runningTotal : '',	
@@ -170,5 +171,52 @@ $(document).ready(function(){
 	$('div.ok-key').click(function(){
 		money = Calculator.runningTotal;
 		// console.log(money);
+		if(parseFloat(money) > 0){
+			$.ajax({
+				url: "/create_record/",
+				type: "POST",
+				data: {
+					"spend": money, 
+					"category": now_category,
+					"csrfmiddlewaretoken": csrf_token
+				},
+				success: function(){
+					console.log("Create new record!");
+				},
+				error: function(xhr, errmsg, err){
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+			})
+			.done(function(){
+				if (charge_state == "income") {
+					window.location.href = "/income/";
+				}
+				else{
+					window.location.href = "/charge/"
+				}
+			});
+
+			
+		}
+		else{
+			alert("請輸入金額！");
+		}
+	});
+
+	$('.charge-category-btn').click(function(){
+		selected_cate = $(this).attr("id").split("-")[0];
+		if (selected_cate != now_category){
+			$("#" + now_category + "-btn").css({
+				'color': "black",
+				'background-color': "white"
+			});
+
+			$("#" + selected_cate + "-btn").css({
+				'color': "white",
+				'background-color': "#808080"
+			});
+
+			now_category = selected_cate;
+		}
 	});
 });
