@@ -11,12 +11,17 @@
 <input type="hidden" id="boy_pic" name="variable" value="{% static 'img/hero_boy_front.png' %}"/>
 <input type="hidden" id="girl_pic" name="variable" value="{% static 'img/hero_girl_front.png' %}"/>
 
-<div id="background" >
+
+
+<div class="row">
+	<div class = "main-layout"></div>
+</div>
+<!--div id="background" >
 <img src="{% static 'img/bg_sky.png' %}" style="width:100%;"/>
 </div>
 <div id="foreground" >
 <img src="{% static 'img/bg_ground.png' %}" style="width:100%;"/>
-</div>
+</div-->
 <div id="hero">
 <img id="heroImg" src="{% static 'img/hero_boy_front.png' %}" style="width:100%;"/>
 </div>
@@ -30,8 +35,9 @@
 
 
 <script>
-
-	
+	var bg_pic_dict = {};
+	bg_pic_dict.bg_ground = "{% static 'img/bg_ground.png' %}";
+	bg_pic_dict.bg_sky = "{% static 'img/bg_sky.png' %}";
 </script>
 
 {%endblock%}

@@ -3,11 +3,13 @@
 {% block content %}
 {% load staticfiles %}
 
+
 <script src="{% static 'js/missions.js' %}"></script>
 <link href="{% static 'css/missions.css' %}" rel="stylesheet">
 
 <input type="hidden" id="rdays" value="{{missionDict.consecutivelogin.0.required_days}}">
 <input type="hidden" id="days" value="{{missionDict.consecutivelogin.0.days}}">
+
 
 <input type="hidden" id="con_bud_rdays" value="{{missionDict.consecutivebudget.0.required_days}}">
 <input type="hidden" id="con_bud_days" value="{{missionDict.consecutivebudget.0.days}}">
@@ -16,6 +18,7 @@
 <input type="hidden" id="con_con_c" value="{{missionDict.consecutiveconsume.0.currentConsume}}">
 <input type="hidden" id="con_con_r" value="{{missionDict.consecutiveconsume.0.requiredConsume}}">
 <input type="hidden" id="con_con_e" value="{{missionDict.consecutiveconsume.0.expiredTime}}">
+
 
 <div class="row">
 	<div class="col-lg-12">
@@ -28,7 +31,8 @@
 {% for mis in missionDict.meal %}
 <div>
   <div class="form-group">
-	    <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" checked onclick="return false;" />
+	    <input type="checkbox" name="fancy-checkbox-primary" id="checkbox-{{forloop.counter}}" autocomplete="off"  />
+      
 	    <div class="[ btn-group ]">
 	        <label for="fancy-checkbox-primary" class="[ btn btn-primary ]">
 	            <span class="[ glyphicon glyphicon-ok ]"></span>

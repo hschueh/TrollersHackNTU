@@ -17,6 +17,7 @@ PKG_NAME = "com.example.wiseledger"
 
 # Create your views here.
 def index(request):
+    cantback = True
 
     return render_to_response('index.html',RequestContext(request,locals()))
 
@@ -33,20 +34,45 @@ def register(request):
 @login_required
 def charge(request):
     sc=User.objects.filter(id=request.user.id)
+    cantback = True
     if sc.count() > 0:
-        cantback = True
         user = User.objects.get(id=request.user.id)
         records = Record.objects.filter(user_id=user.id)
 
-        recordList = []
+        recordDictList = []
         for record in records:
             if not record.category.income:
                 if record.createTime.date() == datetime.datetime.now().date():
-                    recordList.append(record)
+                    tempDict = {}
+                    tempDict["category"] = record.category.name
+                    tempDict["money"] = int(record.spend)
+                    recordDictList.append(tempDict)
+        print(recordDictList)
         return render_to_response('charge.html',RequestContext(request,locals()))
     else :
-        cantback = True
         return render_to_response('create_user.html',RequestContext(request,locals()))
+
+@login_required
+def date_changed(request, chargestate):
+    if request.method == "POST":
+        post_dict = request.POST.dict()
+        date = datetime(post_dict["yr"],post_dict["mon"],post_dict["day"])
+        user = User.objects.get(id=request.user.id)
+        records = Record.objects.filter(user_id=user.id)
+
+        recordDictList = []
+        for record in records:
+            if not record.category.income and chargestate=="expense" or record.category.income and chargestate=="income":
+                if record.createTime.date() == date.date():
+                    tempDict = {}
+                    tempDict["category"] = record.category.name
+                    tempDict["money"] = int(record.spend)
+                    recordDictList.append(tempDict)
+
+        print("record list = ",recordDictList)
+        return HttpResponse(json.dumps(recordDictList))
+    else:
+        return HttpResponse("[Warning]")
 
 @login_required
 def missions(request):
@@ -117,6 +143,11 @@ def battle(request):
     gender = user.gender
     dps = user.dps
     equipment = None
+    sc=User_Monster.objects.filter(user_id=request.user.id)
+    if sc.count() == 0:
+        monster = Monster.objects.get(id = 1)
+        new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=datetime.datetime.now())
+        new_um.save()
     _um = User_Monster.objects.get(user_id=user.id)
     monster = _um.monster
     currentHP = _um.current_hp
@@ -210,6 +241,7 @@ def create_user(request):
 @login_required
 def create_user_submit(request):
     if request.method == "POST":
+        #Add Charge User
         post_dict = request.POST.dict()
         print("user id = ",request.user.id)
         user, created = User.objects.get_or_create(id=request.user.id)
@@ -222,6 +254,11 @@ def create_user_submit(request):
              user.max_exp = 100
              user.money = 0
         user.save()
+        sc=User_Monster.objects.filter(user_id=request.user.id)
+        if sc.count() == 0:
+            monster = Monster.objects.get(id = 1)
+            new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=datetime.datetime.now())
+            new_um.save()
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
