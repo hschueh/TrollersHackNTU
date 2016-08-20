@@ -1,11 +1,14 @@
-var now_category = "Breakfast";
+
 
 $(document).ready(function(){
 	//Dom is ready lets get the fun started.
 	var money = '';
 	var charge_state = $("#chargestate-var").attr("value");
-	console.log(charge_state);
+	// console.log(charge_state);
 	var csrf_token = $("#csrf-var").attr("value");
+	var now_category = "Breakfast";
+
+	if(charge_state == "income") now_category = "Income";
 
 	var Calculator = {
 		runningTotal : '',	

@@ -2,11 +2,20 @@
 {% block title %} Wise Ledger {%endblock%}
 {% block content %}
 
+{% load staticfiles %}
+
+<link href="{% static 'css/statistic.css' %}" rel="stylesheet">
+<script src="{% static 'js/statistic.js' %}"></script>
+
+<input type="hidden" id="chargestate-var" name="variable" value="{{chargestate}}">
+
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Statistic</h1>
 	</div>
 	<!-- /.col-lg-12 -->
+	<div class="graph-block"></div>
+
 </div>
 
 {%endblock%}
