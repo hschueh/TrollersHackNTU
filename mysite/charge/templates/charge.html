@@ -4,14 +4,10 @@
 
 {% load staticfiles %}
 
-<script>
-	var tableData = "{{ recordDictList }}";
-</script>
-
 <link href="{% static 'css/charge.css' %}" rel="stylesheet">
 <script src="{% static 'js/charge.js' %}"></script>
 
-
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}">
 
 <div class="row">
 	<!-- <div class="col-lg-12">
@@ -25,25 +21,7 @@
 
 	</div>
 
-	<table class="table table-striped" id="charge-table">
-		<tr>
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr class = "danger">
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr>
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr class = "danger">
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		
-	</table>
+	<div id="charge-table-block"><table class="table table-striped" id="charge-table"></table></div>
 	<div class="col-xs-12 btn-block">
 		<div class="plus-btn">+</div>
 		<div class="btn-up-block col-xs-12">
