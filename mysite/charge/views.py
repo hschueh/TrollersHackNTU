@@ -100,7 +100,7 @@ def missions(request):
             else:
                 print("[Warning] Unknown mission type.")
         else:
-            if mission.status != "failed":
+            if mission.status != "failed" or mission.status != "rewarded":
                 print("[Warning] Unknown mission status.")
 
     return render_to_response('missions.html',RequestContext(request,locals()))
@@ -118,6 +118,37 @@ def mission_data(request):
         missionDictList.append(tempDict)
 
     return HttpResponse(json.dumps(missionDictList))
+
+@login_required
+def mission_complete(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        post_dict = request.POST.dict()
+        mission = Missions.objects.get(id=int(post_dict["id"]))
+        if mission.missionType == "meal":
+            mis = MealMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutivebudget":
+            mis = ConsecutiveBudgetMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutiveconsume":
+            mis = ConsecutiveConsumeMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutivelogin":
+            mis = ConsecutiveLoginMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "random":
+            mis = RandomMission.objects.get(mission_id=mission.id)
+
+        user.exp += mis.exp
+        user.money += mis.money
+        if user.exp > user.max_exp:
+            user.exp -= user.max_exp
+            user.level += 1
+            next_exp = UserExp.objects.get(level=user.level).required_exp
+            user.max_exp = next_exp
+
+        user.save()
+        mission.status = "rewarded"
+        mission.save()
+
+    return HttpResponse("Mission Complete.")
 
 @login_required
 def statistic(request,chargestate):
