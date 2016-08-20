@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^battle/$',battle),
     url(r'^setting/$', setting),
     url(r'^income/$', income),
-    url(r'^calculator/$', calculator)
+    url(r'^calculator/(?P<chargestate>.+)/$', calculator)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -19,18 +19,22 @@ body{
 	font-family: helvetica, arial, sans-serif;
 }
 
-.container {
-	margin: 0 auto;
-	width: 350px;
-}
-
 .calculator {
 	padding: 10px;
 	margin-top: 20px;
 	background-color: #ccc;
 	border-radius: 5px;
+}
+
+.calculator-keys{
+	/*padding: 10px;*/
+	margin-top: 20px;
+	/*background-color: #ccc;*/
+	border-radius: 5px;
 	/*this is to remove space between divs that are inline-block*/
 	font-size: 0;
+	width: 100%;
+	display: table;
 }
 
 .calculator > input[type=text] {
@@ -43,54 +47,55 @@ body{
 	padding-right: 10px;
 }
 
-.calculator .cal-row { 
-	margin-top: 10px;
+.calculator-keys .cal-row { 
+	/*margin-top: 10px;*/
+	width: 100%;
 }
 
-.calculator .key {
-	width: 78.7px;
+.calculator-keys .key {
+	/*width: 78.7px;*/
 	display: inline-block;
 	background-color: black;
 	color: white;
 	font-size: 5rem;
-	margin-right: 5px;
-	border-radius: 5px;
+	/*margin-right: 5px;*/
+	/*border-radius: 5px;*/
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
 }
 
-.calculator .big-key{
-	width: 157.4px;
+.calculator-keys .big-key{
+	/*width: 157.4px;*/
 	display: inline-block;
 	background-color: black;
 	color: white;
 	font-size: 5rem;
-	margin-right: 10px;
-	border-radius: 5px;
+	margin-right: 0px;
+	/*border-radius: 5px;*/
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
 }
 
-.calculator .ok-key{
-	width: 157.4px;
+.calculator-keys .ok-key{
+	/*width: 157.4px;*/
 	display: inline-block;
 	background-color: red;
 	color: white;
 	font-size: 5rem;
-	margin-right: 10px;
-	border-radius: 5px;
+	margin-right: 0px;
+	/*border-radius: 5px;*/
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
 }
 
-.calculator .key:hover{
+.calculator-keys .key:hover{
 	cursor: pointer;
 }
 
-.calculator .big-key:hover{
+.calculator-keys .big-key:hover{
 	cursor: pointer;
 }
 
