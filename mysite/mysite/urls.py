@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^create_category/$',create_category),
     url(r'^statistic_data/(?P<chargestate>.+)/$',statistic_data),
     url(r'^create_user/$',create_user),
+    url(r'^mission_data/$',mission_data),
     url(r'^create_user_submit/$',create_user_submit),
     url(r'^date_changed/(?P<chargestate>.+)/$',date_changed)
 ]
