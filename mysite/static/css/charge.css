@@ -18,7 +18,7 @@ html{
 	height: 60px;
 	width: 66%;
 	border: none;
-	background-color: #f8f8f8;
+	background-color: #f8f8f8 !important;
 	cursor: pointer;
 	box-shadow: none;
 }
@@ -28,7 +28,7 @@ html{
 }
 
 #charge-table{
-	height: 510px;
+	height: 300px;
 	overflow: scroll;
 	text-align: center;
 }

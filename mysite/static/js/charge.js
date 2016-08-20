@@ -39,6 +39,10 @@ $(document).ready(function(){
 		}		
 	});
 
+	$(".plus-btn").click(function(){
+		window.location.href = '/calculator/';
+	});
+
 	// $('#datetimepicker').data("DateTimePicker").FUNCTION()
 
 	$("#datetimepicker").datetimepicker({
