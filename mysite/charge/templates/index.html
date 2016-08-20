@@ -6,6 +6,13 @@
 <!-- Marketing Icons Section -->
 {% load staticfiles %}
 
+<script type="text/javascript" charset="utf-8">
+function setGCMToken(token){
+    localStorage.setItem("gcmToken", token);
+	// $("#testlocalstorage").append("gcmToken = " + localStorage.getItem("gcmToken")); for debug
+}                                                                                               
+</script>
+
 <div class="row">
 	<div class="col-lg-12">
 		<div class="index-title">
