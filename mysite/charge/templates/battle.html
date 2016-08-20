@@ -7,10 +7,11 @@
 <script>
 	var bg_pic_dict = {};
 	var pic_dict = {};
+	var gender = "{{ gender }}";
+	var dps = "{{ dps }}"
 	bg_pic_dict.bg_ground = "{% static 'img/bg_ground.png' %}";
 	bg_pic_dict.bg_sky = "{% static 'img/bg_sky.png' %}";
-	pic_dict.boss = "{% static 'img/boss_dino.png' %}";
-	pic_dict.hero = "{% static 'img/hero_boy.png' %}";
+	pic_dict.boss = "{{ monster.pngFile }}";
 	pic_dict.wpn = "{% static 'img/wpn_chicken.png' %}";
 
 </script>
