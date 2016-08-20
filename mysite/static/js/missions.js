@@ -1,7 +1,26 @@
+var count = 0;
+
 $(document).ready(function(){
 
-	$.get("/missions/", function(data){
+	$.get("/mission_data/", function(data){
+		data = JSON.parse(data);
 		console.log(data);
+
+		for(var i in data){
+			if (data[i]['missionType'] == "meal"){
+				count++;
+				if(data[i]['status'] == "success"){
+					$("#checkbox-" + count).attr("checked", true);
+					$("#checkbox-" + count).prop("disabled", false);
+				}
+			}
+		}
+
+		/*$(".form-group").click(function(){
+			if($(this).find("input").attr("checked") == true){
+				$(this).remove();
+			}
+		});*/
 	});
 
 	var days = $('#days').attr("value");
