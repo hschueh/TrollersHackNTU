@@ -66,6 +66,20 @@ $(document).ready(function(){
 				return static_img_url + "hero_girl.png";
 		}
 	});
+	
+	var btn = svg.append("svg:image").attr({
+		'width': 140,
+		'height': 140,
+		'x': 300,
+		'y': 300,
+		'xlink:href': static_img_url + "btn_monsterDex.png",
+		'id':'btnMonsterDex'
+	});
+	
+	
+	$('#btnMonsterDex').click(function(){
+		window.location.href = "/monster_dex/";
+	});
 
 	window.setInterval(function(){
 		hero.transition().duration(250).attr("y", 360 + padding_top - 20)

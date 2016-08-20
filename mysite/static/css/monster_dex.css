@@ -1,0 +1,18 @@
+html{
+	font-family: 微軟正黑體;
+	font-size: 48px !important;
+	font-weight: bold !important;
+}
+
+.pics{
+    display: block;
+    height: auto;
+    width: 60%;
+    margin: auto;
+}
+
+.row_custom{
+    width: 100%;
+    margin: 40px;
+    background-color: #EEAA66;
+}
