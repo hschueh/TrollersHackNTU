@@ -4,6 +4,7 @@ var pos_y = 260;
 var width = 370;
 var height = 500;
 var padding_top = 0;
+var static_img_url = '/static/img/';
 
 $(document).ready(function(){
 	console.log(bg_pic_dict);
@@ -43,7 +44,7 @@ $(document).ready(function(){
 		'height': 140,
 		'x': 90,
 		'y': 160 + padding_top,
-		'xlink:href': pic_dict['boss']
+		'xlink:href': static_img_url + pic_dict['boss']
 	});
 
 	var wpn = svg.append("svg:image").attr({
@@ -59,8 +60,25 @@ $(document).ready(function(){
 		'height': 140,
 		'x': 90,
 		'y': 360 + padding_top,
-		'xlink:href': pic_dict['hero']
+		'xlink:href': function(){
+			if(gender)
+				return static_img_url + "hero_boy.png";
+			else
+				return static_img_url + "hero_girl.png";
+		}
 	});
+
+	window.setInterval(function(){
+		hero.transition().duration(250).attr("y", 360 + padding_top - 20)
+		.each("end", function(){
+			hero.transition().duration(250).attr("y", 360 + padding_top);
+		});
+
+		wpn.transition().duration(250).attr("y", 380 + padding_top - 20)
+		.each("end", function(){
+			wpn.transition().duration(250).attr("y", 380 + padding_top);
+		});
+	}, 500);
 
 	
 
@@ -78,7 +96,7 @@ $(document).ready(function(){
 			"font-size": "20px",
 			"fill": "red"
 		})
-		.text("100")
+		.text(dps)
 		.transition().duration(1000)
 		.attr({
 			"y": pos_y - 100
