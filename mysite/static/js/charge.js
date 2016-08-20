@@ -40,7 +40,7 @@ $(document).ready(function(){
 	});
 
 	$(".plus-btn").click(function(){
-		window.location.href = '/calculator/';
+		window.location.href = '/calculator/expense/';
 	});
 
 	// $('#datetimepicker').data("DateTimePicker").FUNCTION()

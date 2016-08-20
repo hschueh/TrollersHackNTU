@@ -1,5 +1,10 @@
+
+
 $(document).ready(function(){
 	//Dom is ready lets get the fun started.
+	var money = '';
+	var charge_state = $("#chargestate-var").attr("value");
+	console.log(charge_state);
 
 	var Calculator = {
 		runningTotal : '',	
@@ -160,5 +165,10 @@ $(document).ready(function(){
 		//We want this to stay as div.keyin the onButtonPress function
 		onButtonPress.call(this);
 		refreshVal();
+	});
+
+	$('div.ok-key').click(function(){
+		money = Calculator.runningTotal;
+		// console.log(money);
 	});
 });

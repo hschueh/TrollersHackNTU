@@ -39,6 +39,10 @@ $(document).ready(function(){
 		}		
 	});
 
+	$(".plus-btn").click(function(){
+		window.location.href = '/calculator/income/';
+	});
+
 	// $('#datetimepicker').data("DateTimePicker").FUNCTION()
 
 	$("#datetimepicker").datetimepicker({
