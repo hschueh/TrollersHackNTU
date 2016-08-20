@@ -81,7 +81,7 @@ def missions(request):
 
     missionDict = {"meal":[],"consecutivebudget":[],"consecutiveconsume":[],"consecutivelogin":[],"random":[]}
     for mission in missions:
-        if mission.status == "processing":
+        if mission.status == "processing" or mission.status == "success" :
             if mission.missionType == "meal":
                 mis = MealMission.objects.filter(mission_id=mission.id)
                 missionDict["meal"].extend(mis)
@@ -100,7 +100,7 @@ def missions(request):
             else:
                 print("[Warning] Unknown mission type.")
         else:
-            if mission.status != "success" and mission.status != "failed":
+            if mission.status != "failed":
                 print("[Warning] Unknown mission status.")
 
     return render_to_response('missions.html',RequestContext(request,locals()))
