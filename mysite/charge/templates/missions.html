@@ -1,12 +1,82 @@
 {% extends 'base.html'%}
 {% block title %} Wise Ledger {%endblock%}
 {% block content %}
+{% load staticfiles %}
+
+<script src="{% static 'js/missions.js' %}"></script>
+<link href="{% static 'css/missions.css' %}" rel="stylesheet">
+
+<input type="hidden" id="rdays" value="{{missionDict.consecutivelogin.0.required_days}}">
+<input type="hidden" id="days" value="{{missionDict.consecutivelogin.0.days}}">
 
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Missions</h1>
 	</div>
 	<!-- /.col-lg-12 -->
+</div>
+
+<div >
+{% for mis in missionDict.meal %}
+<div>
+  <div class="form-group">
+	    <input type="checkbox" name="fancy-checkbox-primary" id="fancy-checkbox-primary" autocomplete="off" checked onclick="return false;" />
+	    <div class="[ btn-group ]">
+	        <label for="fancy-checkbox-primary" class="[ btn btn-primary ]">
+	            <span class="[ glyphicon glyphicon-ok ]"></span>
+	            <span> </span>
+	        </label>
+	        <label for="fancy-checkbox-primary" class="[ btn btn-default active ]">
+	            {{mis.mission.name}}
+	        </label>
+	    </div>
+	</div>
+</div>
+{% endfor %}
+
+{% for mis in missionDict.consecutivebudget %}
+<div>
+  <h5>{{mis.mission.name}}</h5>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+      70%
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for mis in missionDict.consecutiveconsume %}
+<div>
+  <h5>{{mis.mission.name}}</h5>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+      70%
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for mis in missionDict.consecutivelogin %}
+<div>
+  <h5>{{mis.mission.name}}</h5>
+  <div class="progress">
+    <div class="progress-bar" id="daysbar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" ; min-width: 2em;>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% for mis in missionDict.random %}
+<div>
+  <h5>{{mis.mission.name}}</h5>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+      70%
+    </div>
+  </div>
+</div>
+{% endfor %}
+
 </div>
 
 {%endblock%}

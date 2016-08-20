@@ -25,6 +25,10 @@ function daysInMonth(month,year) {
     return new Date(year, month, 0).getDate();
 }
 
+function CreateTable(data){
+	
+}
+
 $(document).ready(function(){
 	$(".main-btn").css("background-color", "#f8f8f8");
 	$("#charge-btn").css("background-color", "#808080");
@@ -97,6 +101,11 @@ $(document).ready(function(){
 		mon = parseInt(e.date._d.getMonth()+1);
 		day = parseInt(e.date._d.getDate());
 		yr = parseInt(e.date._d.getFullYear());
+
+		$.post("/date_changed/expense/",{'yr':yr, 'mon':mon, 'day':day},
+		  function(data,status){
+		    console.log("Data: " + data + "\nStatus: " + status);
+		  });
 		// console.log(mon + "-" + day + "-" + yr);
 	});
 });
