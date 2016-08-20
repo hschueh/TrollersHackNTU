@@ -78,6 +78,7 @@ def date_changed(request, chargestate):
 def missions(request):
     missions = Missions.objects.filter(user_id=request.user.id)
 
+
     missionDict = {"meal":[],"consecutivebudget":[],"consecutiveconsume":[],"consecutivelogin":[],"random":[]}
     for mission in missions:
         if mission.status == "processing":
@@ -102,7 +103,7 @@ def missions(request):
             if mission.status != "success" and mission.status != "failed":
                 print("[Warning] Unknown mission status.")
 
-        return render_to_response('missions.html',RequestContext(request,locals()))
+    return render_to_response('missions.html',RequestContext(request,locals()))
 
 @login_required
 def mission_data(request):
