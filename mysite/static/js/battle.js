@@ -7,38 +7,37 @@ var padding_top = 0;
 var static_img_url = '/static/img/';
 
 $(document).ready(function(){
-	console.log(bg_pic_dict);
 
 	var svg = d3.select(".main-layout").append("svg").attr({
 		"id": "main-svg",
-		// "width": width,
+		"width": "100%",
 		"height": height
 	});
+    var el   = document.getElementById("main-svg"); // or other selector like querySelector()
+    var rect = el.getBoundingClientRect(); 
 
+	
+	
 	var bg_sky = svg.append("svg:image").attr({
-		'width': 370,
-		'height': 300,
+		'width': rect.width,
+		'height': rect.width*3.0/3.7,
 		'x': 0,
 		'y': 0 + padding_top,
-		'xlink:href': bg_pic_dict['bg_sky']
+		'xlink:href': bg_pic_dict['bg_sky'],
+		'image-rendering':'optimizeQuality'
 	});
+
 
 	var bg_ground = svg.append("svg:image").attr({
-		'width': 370,
-		'height': 300,
+		'width': rect.width,
+		'height': rect.width*3.0/3.7,
 		'x': 0,
 		'y': 100 + padding_top,
-		'xlink:href': bg_pic_dict['bg_ground']
+		'xlink:href': bg_pic_dict['bg_ground'],
+		'image-rendering':'optimizeQuality'
 	});
 
-	var bg_ground = svg.append("svg:image").attr({
-		'width': 370,
-		'height': 300,
-		'x': 0,
-		'y': 100 + padding_top,
-		'xlink:href': bg_pic_dict['bg_ground']
-	});
-
+	
 	var boss = svg.append("svg:image").attr({
 		'width': 176,
 		'height': 140,
