@@ -44,6 +44,9 @@ def setting(request):
 def income(request):
     return render_to_response('income.html',RequestContext(request,locals()))
 
+def calculator(request):
+    return render_to_response('calculator.html',RequestContext(request,locals()))
+
 
 
 
