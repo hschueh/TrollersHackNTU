@@ -31,6 +31,32 @@ def charge(request):
     return render_to_response('charge.html',RequestContext(request,locals()))
 
 def missions(request):
+    missions = Missions.objects.filter(user_id=request.user.id)
+
+    missionDict = {}
+    for mission in missions:
+        if mission.status == "processing":
+            if mission.missionType == "meal":
+                mis = MealMission.objects.filter(mission_id=mission.id)
+                missionDict["meal"] = mis
+            elif mission.missionType == "consecutivebudget":
+                mis = ConsecutiveBudgetMission.objects.filter(mission_id=mission.id)
+                missionDict["consecutivebudget"] = mis
+            elif mission.missionType == "consecutiveconsume":
+                mis = ConsecutiveConsumeMission.objects.filter(mission_id=mission.id)
+                missionDict["consecutiveconsume"] = mis
+            elif mission.missionType == "consecutivelogin":
+                mis = ConsecutiveLoginMission.objects.filter(mission_id=mission.id)
+                missionDict["consecutivelogin"] = mis
+            elif mission.missionType == "random":
+                mis = RandomMission.objects.filter(mission_id=mission.id)
+                missionDict["random"] = mis
+            else:
+                print("[Warning] Unknown mission type.")
+        else:
+            if mission.status != "success" and mission.status != "failed":
+                print("[Warning] Unknown mission status.")
+
     return render_to_response('missions.html',RequestContext(request,locals()))
 
 def statistic(request):
@@ -78,7 +104,7 @@ def push_notify(token, title, message, postFix):
         "message": message,
         "postFix": postFix,
     }
-    
+
     response = gcm.json_request(registration_ids=registration_ids,data=notification,collapse_key='awesomeapp',restricted_package_name=PKG_NAME,priority='high',delay_while_idle=False)
 
 
