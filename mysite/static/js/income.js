@@ -1,5 +1,5 @@
 var origin_btn_id = "income";
-
+var firstSetTable = true;
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
@@ -25,9 +25,33 @@ function daysInMonth(month,year) {
     return new Date(year, month, 0).getDate();
 }
 
+function CreateTable(data){
+	$("#income-table tr").remove();
+	if(firstSetTable) {
+		$("#income-table").append("<tbody></tbody>");
+		firstSetTable = false;
+	}
+	for (var i in data){
+		if(i%2 == 0){
+			$('#income-table > tbody:last-child').append('<tr><td>' + data[i]['category'] + '</td><td>' + data[i]['money'] + '</td></tr>');
+		}
+		else
+			$('#income-table > tbody:last-child').append('<tr class="info"><td>' + data[i]['category'] + '</td><td>' + data[i]['money'] + '</td></tr>');
+	}
+}
+
 $(document).ready(function(){
+	var csrf_token = $("#csrf-var").attr("value");
+
 	$(".main-btn").css("background-color", "#f8f8f8");
 	$("#income-btn").css("background-color", "#808080");
+
+	$.post("/date_changed/income/",{'yr':yr, 'mon':mon, 'day':day,"csrfmiddlewaretoken": csrf_token },
+	  function(data,status){
+	  	tableData = JSON.parse(data);
+	  	console.log(tableData);
+	  	CreateTable(tableData);
+	});
 
 	$(".main-btn").click(function(){
 		var id = $(this).attr("id").split("-")[0];
@@ -98,10 +122,12 @@ $(document).ready(function(){
 		day = parseInt(e.date._d.getDate());
 		yr = parseInt(e.date._d.getFullYear());
 
-		$.post("/date_changed/income/",{'yr':yr, 'mon':mon, 'day':day},
+		$.post("/date_changed/income/",{'yr':yr, 'mon':mon, 'day':day,"csrfmiddlewaretoken": csrf_token },
 		  function(data,status){
-		    console.log("Data: " + data + "\nStatus: " + status);
-		  });
+		  	tableData = JSON.parse(data);
+		  	console.log(tableData);
+		  	CreateTable(tableData);
+		});
 		// console.log(mon + "-" + day + "-" + yr);
 	});
 });

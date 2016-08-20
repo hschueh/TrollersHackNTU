@@ -47,7 +47,7 @@ def charge(request):
                     tempDict["category"] = record.category.name
                     tempDict["money"] = int(record.spend)
                     recordDictList.append(tempDict)
-        print(recordDictList)
+        recordDictList = json.dumps(recordDictList)
         return render_to_response('charge.html',RequestContext(request,locals()))
     else :
         return render_to_response('create_user.html',RequestContext(request,locals()))
@@ -56,7 +56,7 @@ def charge(request):
 def date_changed(request, chargestate):
     if request.method == "POST":
         post_dict = request.POST.dict()
-        date = datetime(post_dict["yr"],post_dict["mon"],post_dict["day"])
+        date = datetime.datetime(int(post_dict["yr"]),int(post_dict["mon"]),int(post_dict["day"]))
         user = User.objects.get(id=request.user.id)
         records = Record.objects.filter(user_id=user.id)
 
@@ -78,8 +78,14 @@ def date_changed(request, chargestate):
 def missions(request):
     missions = Missions.objects.filter(user_id=request.user.id)
 
+    missionDictList = []
     missionDict = {"meal":[],"consecutivebudget":[],"consecutiveconsume":[],"consecutivelogin":[],"random":[]}
     for mission in missions:
+        tempDict = {}
+        tempDict["status"] = mission.status
+        tempDict["name"] = mission.name
+        tempDict["missionType"] = mission.missionType
+        missionDictList.append(tempDict)
         if mission.status == "processing":
             if mission.missionType == "meal":
                 mis = MealMission.objects.filter(mission_id=mission.id)
@@ -102,6 +108,7 @@ def missions(request):
             if mission.status != "success" and mission.status != "failed":
                 print("[Warning] Unknown mission status.")
 
+    missionDictList = json.dumps(missionDictList)
     return render_to_response('missions.html',RequestContext(request,locals()))
 
 @login_required
