@@ -33,6 +33,15 @@ def register(request):
 @login_required
 def charge(request):
     cantback = True
+    user = User.objects.get(id=request.user.id)
+    records = Record.objects.filter(user_id=user.id)
+
+    recordList = []
+    for record in records:
+        if not record.category.income:
+            if record.createTime.date() == datetime.datetime.now().date():
+                recordList.append(record)
+
     return render_to_response('charge.html',RequestContext(request,locals()))
 
 @login_required
@@ -147,6 +156,15 @@ def setting(request):
 @login_required
 def income(request):
     cantback = True
+    user = User.objects.get(id=request.user.id)
+    records = Record.objects.filter(user_id=user.id)
+
+    recordList = []
+    for record in records:
+        if record.category.income:
+            if record.createTime.date() == datetime.datetime.now().date():
+                recordList.append(record)
+
     return render_to_response('income.html',RequestContext(request,locals()))
 
 @login_required
@@ -183,7 +201,7 @@ def create_category(request):
 @login_required
 def create_user(request):
     cantback = True
-    return render_to_response('create_user.html',RequestContext(request,locals()))		
+    return render_to_response('create_user.html',RequestContext(request,locals()))
 
 @login_required
 def create_user_submit(request):
@@ -194,7 +212,7 @@ def create_user_submit(request):
         user.gender = post_dict['gender'] == "M"
         user.facebookID = post_dict['facebookID']
         user.token = post_dict['token']
-        if created :   
+        if created :
              user.level = 0
              user.exp = 0
              user.max_exp = 100
@@ -203,7 +221,7 @@ def create_user_submit(request):
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
-		
+
 @login_required
 def push_notify(token, title, message, postFix):
     gcm = GCM(API_KEY)
