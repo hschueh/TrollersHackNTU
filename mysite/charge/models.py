@@ -22,7 +22,11 @@ class Record(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length = 100)
-    value = models.DecimalField(max_digits=5,decimal_places=0)
+    itemType = models.CharField(max_length = 10,default="equipment")
+    attack = models.DecimalField(max_digits=5,decimal_places=0)
+    duration = models.DecimalField(max_digits=3,decimal_places=0,default=0)
+    expiredTime = models.DateTimeField(blank=True,default="0")
+    cost = models.DecimalField(max_digits=5,decimal_places=0,default=0)
 
 class User_Item(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,)
@@ -33,20 +37,53 @@ class UserExp(models.Model):
     required_exp = models.DecimalField(max_digits=12,decimal_places=0)
 
 class Monster(models.Model):
+    name = models.CharField(max_length = 100,default="Boss")
     level = models.DecimalField(max_digits=4,decimal_places=0)
-    hp = models.DecimalField(max_digits=4,decimal_places=0)
-    exp = models.DecimalField(max_digits=4,decimal_places=0)
-    money = models.DecimalField(max_digits=4,decimal_places=0)
+    hp = models.DecimalField(max_digits=20,decimal_places=0)
+    exp = models.DecimalField(max_digits=9,decimal_places=0)
+    money = models.DecimalField(max_digits=9,decimal_places=0)
     pngFile = models.CharField(max_length = 200)
 
 class User_Monster(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,)
     monster = models.ForeignKey(Monster,on_delete=models.CASCADE,)
-    current_hp = models.DecimalField(max_digits=4,decimal_places=0)
+    current_hp = models.DecimalField(max_digits=20,decimal_places=0)
     createTime = models.DateTimeField(auto_now_add=True, blank=True)
 
+class Missions(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,)
+    missionType = models.CharField(max_length = 20)
+    status = models.CharField(max_length = 20)
+    createTime = models.DateTimeField(auto_now_add=True, blank=True)
 
+class ConsecutiveLoginMission(models.Model):
+    mission = models.ForeignKey(Missions,on_delete=models.CASCADE,)
+    days = models.DecimalField(max_digits=4,decimal_places=0)
+    required_days = models.DecimalField(max_digits=4,decimal_places=0)
+    exp = models.DecimalField(max_digits=10,decimal_places=0)
+    money = models.DecimalField(max_digits=10,decimal_places=0)
 
+class ConsecutiveConsumeMission(models.Model):
+    mission = models.ForeignKey(Missions,on_delete=models.CASCADE,)
+    days = models.DecimalField(max_digits=4,decimal_places=0)
+    required_days = models.DecimalField(max_digits=4,decimal_places=0)
+    targetCategory = models.ForeignKey(Category,on_delete=models.CASCADE,)
+    exp = models.DecimalField(max_digits=10,decimal_places=0)
+    money = models.DecimalField(max_digits=10,decimal_places=0)
+
+class MealMission(models.Model):
+    mission = models.ForeignKey(Missions,on_delete=models.CASCADE,)
+    meal = models.CharField(max_length = 20)
+    exp = models.DecimalField(max_digits=10,decimal_places=0)
+    money = models.DecimalField(max_digits=10,decimal_places=0)
+
+class RandomMission(models.Model):
+    mission = models.ForeignKey(Missions,on_delete=models.CASCADE,)
+    targetItem = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    amount = models.DecimalField(max_digits=10,decimal_places=0)
+    expiredTime = models.DateTimeField(blank=True)
+    exp = models.DecimalField(max_digits=10,decimal_places=0)
+    money = models.DecimalField(max_digits=10,decimal_places=0)
 
 
 
