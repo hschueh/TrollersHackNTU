@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class User(models.Model):
-    level = models.DecimalField(max_digits=3,decimal_places=0)
-    exp = models.DecimalField(max_digits=10,decimal_places=0)
-    max_exp = models.DecimalField(max_digits=10,decimal_places=0)
-    money = models.DecimalField(max_digits=12,decimal_places=0)
+    level = models.DecimalField(max_digits=3,decimal_places=0,default=1)
+    exp = models.DecimalField(max_digits=10,decimal_places=0,default=0)
+    max_exp = models.DecimalField(max_digits=10,decimal_places=0,default=100)
+    money = models.DecimalField(max_digits=12,decimal_places=0,default=0)
     dps = models.DecimalField(max_digits=5,decimal_places=0,default=1)
     facebookID = models.CharField(max_length = 100,default="")
     token = models.CharField(max_length = 200,default="")
@@ -83,6 +83,7 @@ class ConsecutiveBudgetMission(models.Model):
     days = models.DecimalField(max_digits=4,decimal_places=0)
     required_days = models.DecimalField(max_digits=4,decimal_places=0)
     budget = models.DecimalField(max_digits=8,decimal_places=0)
+    accumulation = models.DecimalField(max_digits=8,decimal_places=0,default=0)
     exp = models.DecimalField(max_digits=10,decimal_places=0)
     money = models.DecimalField(max_digits=10,decimal_places=0)
 

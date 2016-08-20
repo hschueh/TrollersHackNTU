@@ -4,15 +4,21 @@
 
 {% load staticfiles %}
 <link href="{% static 'css/setting.css' %}" rel="stylesheet">
-<script src="{% static 'js/setting.js' %}"></script>
+<script src="{% static 'js/setting.js?1' %}"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+ 
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}">
 
 <h1 class="page-header">設定</h1>
 
-<h2 onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">新增類別</h2>
+<h2 id = "create-category" onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'" >新增支出類別</h2>
 <div class="row">
-<h2 class="normalSelection" style="padding-left:15px" >幣值 
+<h2 class="normalSelection" style="padding-left:15px" >貨幣 
   <select name="Money" hspace="15">
-　<option value="Taiwan">NTD</option>
+　<option value="Taiwan">TWD</option>
 　<option value="Europe">EURO</option>
 　<option value="USA">USD</option>
 </select>
@@ -21,4 +27,145 @@
 <h2  onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">定期定額收入</h2>
 <h2  onMouseOver="this.style.backgroundColor='#d3d3d3'" onMouseOut="this.style.backgroundColor='#f7f7f7'">密碼設定</h2>
 
+<p id="demo"></p>
+<script>
+/*function myFunction() {
+	var csrf_token = $("#csrf-var").attr("value");
+    var  new_category = prompt("請輸入欲新增項目");
+    
+    if (new_category != null) {
+        document.getElementById("demo").innerHTML =
+        "Hello " + new_category + "! How are you today?";
+       
+		 console.log(new_category);
+		$.ajax({
+				url: "/create_category/",
+				type: "POST",
+				data: {
+					"name": new_category, 
+					"income": 0,
+					"csrfmiddlewaretoken": csrf_token
+				},
+				success: function(){
+					console.log("Create new category!");
+				},
+				error: function(xhr, errmsg, err){
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+		})
+		
+
+	}	
+	
+
+}*/
+  $( function() {
+    var dialog, form,
+ 
+      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "Length of " + n + " must be between " +
+          min + " and " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function addUser() {
+      var valid = true;
+      var csrf_token = $("#csrf-var").attr("value");
+      allFields.removeClass( "ui-state-error" );
+     
+      valid = valid && checkLength( name, "名稱", 1, 16 );
+      
+ 
+      if ( valid ) {
+      	 console.log(name.val());
+      	 $.ajax({
+				url: "/create_category/",
+				type: "POST",
+				data: {
+					"name": name.val(), 
+					"income": 0,
+					"csrfmiddlewaretoken": csrf_token
+				},
+				success: function(){
+					console.log("Create new category!");
+				},
+				error: function(xhr, errmsg, err){
+					console.log(xhr.status + ": " + xhr.responseText);
+				}
+		})
+        dialog.dialog( "close" );
+      }
+      return valid;
+    }
+ 
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 150,
+      width: 300,
+      modal: true,
+      buttons: {
+        "Ok": addUser,
+        Cancel: function() {
+          dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+ 
+    form = dialog.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      addUser();
+    });
+ 
+    $( "#create-category" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+    });
+  } );
+</script>
+
+<div id="dialog-form" title="輸入名稱"  hidden="hidden">
+
+  <form>
+    <fieldset>
+      <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
 {%endblock%}

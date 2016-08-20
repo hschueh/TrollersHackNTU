@@ -72,7 +72,11 @@
   <header>
       {% if cantback %}
       {% else %}
-      <div><a href="/charge/">回上一頁</a></div>
+      <div>
+        <a href="/charge/">
+            <img width = "39px" style="display:table" src="{% static 'img/btn_back.png' %}">
+        </a>
+      </div>
       {% endif %}
   </header>
 
