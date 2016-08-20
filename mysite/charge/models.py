@@ -83,6 +83,7 @@ class ConsecutiveBudgetMission(models.Model):
     days = models.DecimalField(max_digits=4,decimal_places=0)
     required_days = models.DecimalField(max_digits=4,decimal_places=0)
     budget = models.DecimalField(max_digits=8,decimal_places=0)
+    accumulation = models.DecimalField(max_digits=8,decimal_places=0,default=0)
     exp = models.DecimalField(max_digits=10,decimal_places=0)
     money = models.DecimalField(max_digits=10,decimal_places=0)
 
