@@ -42,7 +42,9 @@ urlpatterns = [
     url(r'^calculator/(?P<chargestate>.+)/$', calculator),
     url(r'^create_record/$',create_record),
     url(r'^create_category/$',create_category),
-    url(r'^statistic_data/(?P<chargestate>.+)/$',statistic_data)
+    url(r'^statistic_data/(?P<chargestate>.+)/$',statistic_data),
+    url(r'^create_user/$',create_user),
+    url(r'^create_user_submit/$',create_user_submit)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -8,13 +8,3 @@ li {
 .img-carousel {
   width    : 100%;
 }
-
-/* 如果使用者視窗寬度 <= 768px */
-@media screen and (max-width: 768px) {
-  img {
-    display: none;
-  }
-  img.smallscreen {
-    display: block;
-  }
-}
