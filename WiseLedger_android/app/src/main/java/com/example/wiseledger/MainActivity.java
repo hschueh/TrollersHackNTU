@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     MainActivity m_context = this;
     String token = "";
     Boolean m_firstTime = true;
+    String BASE_URL = "http://140.112.21.19:8000/"
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                if(m_firstTime){
+                if (m_firstTime) {
                     firstTimeLoading();
                 }
 
@@ -68,8 +69,17 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        m_webView.loadUrl("http://1.34.217.78:3000");
-        //m_webView.loadUrl("http://140.112.21.19:8000");
+        Bundle extra = getIntent().getExtras();
+        if(extra != null) {
+            String postFix = extra.getString("postFix");
+            if (postFix != null) {
+                m_webView.loadUrl(BASE_URL + postFix);
+            } else {
+                m_webView.loadUrl(BASE_URL);
+            }
+        } else {
+            m_webView.loadUrl(BASE_URL);
+        }
     }
 
     //Registering receiver on activity resume
