@@ -35,24 +35,24 @@ def charge(request):
 def missions(request):
     missions = Missions.objects.filter(user_id=request.user.id)
 
-    missionDict = {}
+    missionDict = {"meal":[],"consecutivebudget":[],"consecutiveconsume":[],"consecutivelogin":[],"random":[]}
     for mission in missions:
         if mission.status == "processing":
             if mission.missionType == "meal":
                 mis = MealMission.objects.filter(mission_id=mission.id)
-                missionDict["meal"] = mis
+                missionDict["meal"].extend(mis)
             elif mission.missionType == "consecutivebudget":
                 mis = ConsecutiveBudgetMission.objects.filter(mission_id=mission.id)
-                missionDict["consecutivebudget"] = mis
+                missionDict["consecutivebudget"].extend(mis)
             elif mission.missionType == "consecutiveconsume":
                 mis = ConsecutiveConsumeMission.objects.filter(mission_id=mission.id)
-                missionDict["consecutiveconsume"] = mis
+                missionDict["consecutiveconsume"].extend(mis)
             elif mission.missionType == "consecutivelogin":
                 mis = ConsecutiveLoginMission.objects.filter(mission_id=mission.id)
-                missionDict["consecutivelogin"] = mis
+                missionDict["consecutivelogin"].extend(mis)
             elif mission.missionType == "random":
                 mis = RandomMission.objects.filter(mission_id=mission.id)
-                missionDict["random"] = mis
+                missionDict["random"].extend(mis)
             else:
                 print("[Warning] Unknown mission type.")
         else:
