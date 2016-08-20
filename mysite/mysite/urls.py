@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^income/$', income),
     url(r'^calculator/(?P<chargestate>.+)/$', calculator),
     url(r'^create_record/$',create_record),
+    url(r'^create_category/$',create_category),
     url(r'^statistic_data/(?P<chargestate>.+)/$',statistic_data)
 ]
 
