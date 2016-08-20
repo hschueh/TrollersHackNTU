@@ -30,6 +30,10 @@ function CreateTable(data){
 }
 
 $(document).ready(function(){
+
+	tableData = JSON.parse(tableData);
+	console.log(tableData);
+
 	$(".main-btn").css("background-color", "#f8f8f8");
 	$("#charge-btn").css("background-color", "#808080");
 
@@ -104,7 +108,8 @@ $(document).ready(function(){
 
 		$.post("/date_changed/expense/",{'yr':yr, 'mon':mon, 'day':day},
 		  function(data,status){
-		    console.log("Data: " + data + "\nStatus: " + status);
+		  	tableData = JSON.parse(data);
+		    // console.log("Data: " + data + "\nStatus: " + status);
 		  });
 		// console.log(mon + "-" + day + "-" + yr);
 	});

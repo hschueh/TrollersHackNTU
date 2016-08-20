@@ -12,4 +12,6 @@ $(document).ready(function(){
 	var valeur = days/rdays*100;
 	$('#daysbar').css('width', valeur+'%').attr('aria-valuenow', valeur);
 
+	console.log(statusList);
+
 });

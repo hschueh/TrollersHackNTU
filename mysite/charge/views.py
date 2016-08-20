@@ -17,6 +17,7 @@ PKG_NAME = "com.example.wiseledger"
 
 # Create your views here.
 def index(request):
+    cantback = True
 
     return render_to_response('index.html',RequestContext(request,locals()))
 
@@ -33,20 +34,45 @@ def register(request):
 @login_required
 def charge(request):
     sc=User.objects.filter(id=request.user.id)
+    cantback = True
     if sc.count() > 0:
-        cantback = True
         user = User.objects.get(id=request.user.id)
         records = Record.objects.filter(user_id=user.id)
 
-        recordList = []
+        recordDictList = []
         for record in records:
             if not record.category.income:
                 if record.createTime.date() == datetime.datetime.now().date():
-                    recordList.append(record)
+                    tempDict = {}
+                    tempDict["category"] = record.category.name
+                    tempDict["money"] = int(record.spend)
+                    recordDictList.append(tempDict)
+        print(recordDictList)
         return render_to_response('charge.html',RequestContext(request,locals()))
     else :
-        cantback = True
         return render_to_response('create_user.html',RequestContext(request,locals()))
+
+@login_required
+def date_changed(request, chargestate):
+    if request.method == "POST":
+        post_dict = request.POST.dict()
+        date = datetime(post_dict["yr"],post_dict["mon"],post_dict["day"])
+        user = User.objects.get(id=request.user.id)
+        records = Record.objects.filter(user_id=user.id)
+
+        recordDictList = []
+        for record in records:
+            if not record.category.income and chargestate=="expense" or record.category.income and chargestate=="income":
+                if record.createTime.date() == date.date():
+                    tempDict = {}
+                    tempDict["category"] = record.category.name
+                    tempDict["money"] = int(record.spend)
+                    recordDictList.append(tempDict)
+
+        print("record list = ",recordDictList)
+        return HttpResponse(json.dumps(recordDictList))
+    else:
+        return HttpResponse("[Warning]")
 
 @login_required
 def missions(request):
