@@ -21,21 +21,25 @@ public class GCMPushReceiverService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         //Getting the message from the bundle
         String message = data.getString("message");
+        String title = data.getString("title");
+        String postFix = data.getString("postFix");
         //Displaying a notiffication with the message
-        sendNotification(message);
+        sendNotification(title, message, postFix);
     }
 
     //This method is generating a notification and displaying the notification
-    private void sendNotification(String message) {
+    private void sendNotification(String title, String message, String postFix) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("postFix",postFix);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         int requestCode = 0;
         PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.icon_noti)
                 .setContentText(message)
+                .setContentTitle(title)
                 //.setAutoCancel(true)
-                .setVibrate(new long[] { 1000, 1000 })
+                .setVibrate(new long[]{1000, 1000})
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
