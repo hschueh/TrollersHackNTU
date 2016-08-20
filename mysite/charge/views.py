@@ -145,6 +145,30 @@ def create_category(request):
         return HttpResponse("Error occured!")
 
 @login_required
+def create_user(request):
+    cantback = True
+    return render_to_response('create_user.html',RequestContext(request,locals()))		
+
+@login_required
+def create_user_submit(request):
+    if request.method == "POST":
+        post_dict = request.POST.dict()
+        print("user id = ",request.user.id)
+        user, created = User.objects.get_or_create(id=request.user.id)
+        user.gender = post_dict['gender'] == "M"
+        user.facebookID = post_dict['facebookID']
+        user.token = post_dict['token']
+        if created :   
+             user.level = 0
+             user.exp = 0
+             user.max_exp = 100
+             user.money = 0
+        user.save()
+        return HttpResponse("Create new User!")
+    else:
+        return HttpResponse("Error occured!")
+		
+@login_required
 def push_notify(token, title, message, postFix):
     gcm = GCM(API_KEY)
     registration_ids = [token]#"f4lCd6APSBg:APA91bHxplaOaWyL7xMoIK6vDtLNxWqjemFDaJvgtXFcYegXgD50_09lussUtR7K6NvGtdmX61qSHkiCy1a5YTG4m7wYeLoqtcN9n4HSCpEWBc2k1Gg5Yiow7qQpNndTV0SuTPE4oC0R"

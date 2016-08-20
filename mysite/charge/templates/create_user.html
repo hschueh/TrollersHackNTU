@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% block title %} Wise Ledger {%endblock%}
+{% block content %}
+
+{% load staticfiles %}
+
+<link href="{% static 'css/create_user.css' %}" rel="stylesheet"></link>
+<script src="{% static 'js/create_user.js' %}"></script>
+
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}"/>
+<input type="hidden" id="boy_pic" name="variable" value="{% static 'img/hero_boy_front.png' %}"/>
+<input type="hidden" id="girl_pic" name="variable" value="{% static 'img/hero_girl_front.png' %}"/>
+
+<div id="background" >
+<img src="{% static 'img/bg_sky.png' %}" style="width:100%;"/>
+</div>
+<div id="foreground" >
+<img src="{% static 'img/bg_ground.png' %}" style="width:100%;"/>
+</div>
+<div id="hero">
+<img id="heroImg" src="{% static 'img/hero_boy_front.png' %}" style="width:100%;"/>
+</div>
+<div id="switch">
+	<img id="switchBtn" src="{% static 'img/btn_switch.png' %}"></div>
+</div>
+
+<div class="main">
+	<button type="button" id="ok-key" class="btn .btn-default btn-lg ok-key" float="left">Okay!</button>
+</div>
+
+
+<script>
+
+	
+</script>
+
+{%endblock%}
+
+
+@media screen and (max-width: 768px) {
+  img {
+    display: none;
+  }
+  img.smallscreen {
+    display: block;
+  }
+}

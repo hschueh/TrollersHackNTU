@@ -38,7 +38,7 @@ public class GCMPushReceiverService extends GcmListenerService {
                 .setSmallIcon(R.drawable.icon_noti)
                 .setContentText(message)
                 .setContentTitle(title)
-                //.setAutoCancel(true)
+                .setAutoCancel(true)
                 .setVibrate(new long[]{1000, 1000})
                 .setContentIntent(pendingIntent);
 
