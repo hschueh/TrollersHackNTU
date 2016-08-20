@@ -11,6 +11,14 @@
 <input type="hidden" id="days" value="{{missionDict.consecutivelogin.0.days}}">
 
 
+<input type="hidden" id="con_bud_rdays" value="{{missionDict.consecutivebudget.0.required_days}}">
+<input type="hidden" id="con_bud_days" value="{{missionDict.consecutivebudget.0.days}}">
+<input type="hidden" id="task_budget" value="{{missionDict.consecutivebudget.0.budget}}">
+
+<input type="hidden" id="con_con_c" value="{{missionDict.consecutiveconsume.0.currentConsume}}">
+<input type="hidden" id="con_con_r" value="{{missionDict.consecutiveconsume.0.requiredConsume}}">
+<input type="hidden" id="con_con_e" value="{{missionDict.consecutiveconsume.0.expiredTime}}">
+
 
 <div class="row">
 	<div class="col-lg-12">
@@ -38,11 +46,15 @@
 </div>
 {% endfor %}
 
+
 {% for mis in missionDict.consecutivebudget %}
 <div>
-  <h5>{{mis.mission.name}}</h5>
+
+  <h5>{{mis.mission.name}}     </h5> 
+  
+  <h5>{{missionDict.consecutivebudget.0.days}} / {{missionDict.consecutivebudget.0.required_days}} 天 </h5>
   <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+    <div class="progress-bar progress-bar-striped active" id="budget_bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
       70%
     </div>
   </div>
@@ -51,9 +63,10 @@
 
 {% for mis in missionDict.consecutiveconsume %}
 <div>
-  <h5>{{mis.mission.name}}</h5>
+  <h5>{{mis.mission.name}}  </h5>
+  <h5>類別: {{missionDict.consecutiveconsume.0.targetCategory.name}}  到期日: {{missionDict.consecutiveconsume.0.expiredTime}}</h5>
   <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+    <div class="progress-bar progress-bar-striped active" id="consume_bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%"; min-width: "2em";>
       70%
     </div>
   </div>
@@ -64,7 +77,7 @@
 <div>
   <h5>{{mis.mission.name}}</h5>
   <div class="progress">
-    <div class="progress-bar" id="daysbar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" ; min-width: 2em;>
+    <div class="progress-bar progress-bar-striped active" id="daysbar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" ; min-width: 2em;>
     </div>
   </div>
 </div>
@@ -74,7 +87,7 @@
 <div>
   <h5>{{mis.mission.name}}</h5>
   <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
+    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"; min-width: "2em";>
       70%
     </div>
   </div>
