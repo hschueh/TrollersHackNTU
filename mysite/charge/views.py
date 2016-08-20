@@ -30,8 +30,14 @@ def register(request):
 
 @login_required
 def charge(request):
-    cantback = True
-    return render_to_response('charge.html',RequestContext(request,locals()))
+    sc=User.objects.filter(id=request.user.id)
+    if sc.count() > 0:
+        cantback = True
+        return render_to_response('charge.html',RequestContext(request,locals()))
+    else :
+        cantback = True
+        return render_to_response('create_user.html',RequestContext(request,locals()))	
+	    
 
 @login_required
 def missions(request):
@@ -158,11 +164,7 @@ def create_user_submit(request):
         user.gender = post_dict['gender'] == "M"
         user.facebookID = post_dict['facebookID']
         user.token = post_dict['token']
-        if created :   
-             user.level = 0
-             user.exp = 0
-             user.max_exp = 100
-             user.money = 0
+
         user.save()
         return HttpResponse("Create new User!")
     else:
