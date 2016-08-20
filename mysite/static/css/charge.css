@@ -27,10 +27,15 @@ html{
 	cursor: pointer;
 }
 
-#charge-table{
-	height: 300px;
+#charge-table-block{
+	height: 330px;
 	overflow: scroll;
+	width: 100%;
+}
+
+#charge-table{
 	text-align: center;
+	border-bottom: 0.5px solid #d0d0d0;
 }
 
 .plus-btn{

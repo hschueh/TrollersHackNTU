@@ -7,6 +7,8 @@
 <link href="{% static 'css/income.css' %}" rel="stylesheet">
 <script src="{% static 'js/income.js' %}"></script>
 
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}">
+
 <div class="row">
 	<!-- <div class="col-lg-12">
 		<h1 class="page-header">Income</h1>
@@ -19,25 +21,7 @@
 
 	</div>
 
-	<table class="table table-striped" id="income-table">
-		<tr>
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr class = "info">
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr>
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		<tr class = "info">
-			<td>column content</td>
-			<td>column content</td>
-		</tr>
-		
-	</table>
+	<div id="income-table-block"><table class="table table-striped" id="income-table"></table></div>
 	<div class="col-xs-12 btn-block">
 		<div class="plus-btn">+</div>
 		<div class="btn-up-block col-xs-12">
