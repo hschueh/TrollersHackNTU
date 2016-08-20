@@ -32,17 +32,21 @@ def register(request):
 
 @login_required
 def charge(request):
-    cantback = True
-    user = User.objects.get(id=request.user.id)
-    records = Record.objects.filter(user_id=user.id)
+    sc=User.objects.filter(id=request.user.id)
+    if sc.count() > 0:
+        cantback = True
+        user = User.objects.get(id=request.user.id)
+        records = Record.objects.filter(user_id=user.id)
 
-    recordList = []
-    for record in records:
-        if not record.category.income:
-            if record.createTime.date() == datetime.datetime.now().date():
-                recordList.append(record)
-
-    return render_to_response('charge.html',RequestContext(request,locals()))
+        recordList = []
+        for record in records:
+            if not record.category.income:
+                if record.createTime.date() == datetime.datetime.now().date():
+                    recordList.append(record)
+        return render_to_response('charge.html',RequestContext(request,locals()))
+    else :
+        cantback = True
+        return render_to_response('create_user.html',RequestContext(request,locals()))
 
 @login_required
 def missions(request):
