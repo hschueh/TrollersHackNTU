@@ -1,5 +1,5 @@
 var origin_btn_id = "charge";
-
+var firstSetTable = true;
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
@@ -26,13 +26,29 @@ function daysInMonth(month,year) {
 }
 
 function CreateTable(data){
-	
+	$("#charge-table tr").remove();
+	if(firstSetTable) {
+		$("#charge-table").append("<tbody></tbody>");
+		firstSetTable = false;
+	}
+	for (var i in data){
+		if(i%2 == 0){
+			$('#charge-table > tbody:last-child').append('<tr><td>' + data[i]['category'] + '</td><td>' + data[i]['money'] + '</td></tr>');
+		}
+		else
+			$('#charge-table > tbody:last-child').append('<tr class="danger"><td>' + data[i]['category'] + '</td><td>' + data[i]['money'] + '</td></tr>');
+	}
 }
 
 $(document).ready(function(){
+	var csrf_token = $("#csrf-var").attr("value");
 
-	tableData = JSON.parse(tableData);
-	console.log(tableData);
+	$.post("/date_changed/expense/",{'yr':yr, 'mon':mon, 'day':day,"csrfmiddlewaretoken": csrf_token },
+	  function(data,status){
+	  	tableData = JSON.parse(data);
+	  	// console.log(tableData);
+	  	CreateTable(tableData);
+	});
 
 	$(".main-btn").css("background-color", "#f8f8f8");
 	$("#charge-btn").css("background-color", "#808080");
@@ -106,9 +122,10 @@ $(document).ready(function(){
 		day = parseInt(e.date._d.getDate());
 		yr = parseInt(e.date._d.getFullYear());
 
-		$.post("/date_changed/expense/",{'yr':yr, 'mon':mon, 'day':day},
+		$.post("/date_changed/expense/",{'yr':yr, 'mon':mon, 'day':day,"csrfmiddlewaretoken": csrf_token },
 		  function(data,status){
 		  	tableData = JSON.parse(data);
+	  		CreateTable(tableData);
 		    // console.log("Data: " + data + "\nStatus: " + status);
 		  });
 		// console.log(mon + "-" + day + "-" + yr);
