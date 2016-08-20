@@ -262,6 +262,15 @@ def create_user_submit(request):
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
+		
+		
+@login_required
+def monster_dex(request):
+    cantback = True
+    _um = User_Monster.objects.get(user_id=request.user.id)
+    current_monster_id = _um.monster.id
+    monsters = Monster.objects.all()
+    return render_to_response('monster_dex.html',RequestContext(request,locals()))
 
 @login_required
 def push_notify(token, title, message, postFix):
