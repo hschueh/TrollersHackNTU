@@ -144,7 +144,6 @@ def mission_complete(request):
             user.level += 1
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
-
         user.save()
         mission.status = "rewarded"
         mission.save()
@@ -211,6 +210,14 @@ def battle(request):
     if duration*dps > currentHP: # defeat Boss
         exp_gain = monster.exp
         money_gain = monster.money
+        user.exp += monster.exp
+        user.money += monster.money
+        if user.exp > user.max_exp:
+            user.exp -= user.max_exp
+            user.level += 1
+            next_exp = UserExp.objects.get(level=user.level).required_exp
+            user.max_exp = next_exp
+        user.save()
         monster = Monster.objects.get(id = (_um.monster.id+1)%11)
         _um.delete()
         new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
