@@ -47,7 +47,7 @@ def charge(request):
                     tempDict["category"] = record.category.name
                     tempDict["money"] = int(record.spend)
                     recordDictList.append(tempDict)
-        print(recordDictList)
+        recordDictList = json.dumps(recordDictList)
         return render_to_response('charge.html',RequestContext(request,locals()))
     else :
         return render_to_response('create_user.html',RequestContext(request,locals()))
@@ -56,7 +56,7 @@ def charge(request):
 def date_changed(request, chargestate):
     if request.method == "POST":
         post_dict = request.POST.dict()
-        date = datetime(post_dict["yr"],post_dict["mon"],post_dict["day"])
+        date = datetime.datetime(int(post_dict["yr"]),int(post_dict["mon"]),int(post_dict["day"]))
         user = User.objects.get(id=request.user.id)
         records = Record.objects.filter(user_id=user.id)
 
@@ -78,9 +78,10 @@ def date_changed(request, chargestate):
 def missions(request):
     missions = Missions.objects.filter(user_id=request.user.id)
 
+
     missionDict = {"meal":[],"consecutivebudget":[],"consecutiveconsume":[],"consecutivelogin":[],"random":[]}
     for mission in missions:
-        if mission.status == "processing":
+        if mission.status == "processing" or mission.status == "success" :
             if mission.missionType == "meal":
                 mis = MealMission.objects.filter(mission_id=mission.id)
                 missionDict["meal"].extend(mis)
@@ -99,10 +100,56 @@ def missions(request):
             else:
                 print("[Warning] Unknown mission type.")
         else:
-            if mission.status != "success" and mission.status != "failed":
+            if mission.status != "failed" or mission.status != "rewarded":
                 print("[Warning] Unknown mission status.")
 
     return render_to_response('missions.html',RequestContext(request,locals()))
+
+@login_required
+def mission_data(request):
+    missions = Missions.objects.filter(user_id=request.user.id)
+
+    missionDictList = []
+    for mission in missions:
+        tempDict = {}
+        tempDict["id"] = mission.id
+        tempDict["status"] = mission.status
+        tempDict["name"] = mission.name
+        tempDict["missionType"] = mission.missionType
+        missionDictList.append(tempDict)
+
+    return HttpResponse(json.dumps(missionDictList))
+
+@login_required
+def mission_complete(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        post_dict = request.POST.dict()
+        mission = Missions.objects.get(id=int(post_dict["id"]))
+        if mission.missionType == "meal":
+            mis = MealMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutivebudget":
+            mis = ConsecutiveBudgetMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutiveconsume":
+            mis = ConsecutiveConsumeMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "consecutivelogin":
+            mis = ConsecutiveLoginMission.objects.get(mission_id=mission.id)
+        elif mission.missionType == "random":
+            mis = RandomMission.objects.get(mission_id=mission.id)
+
+        user.exp += mis.exp
+        user.money += mis.money
+        if user.exp > user.max_exp:
+            user.exp -= user.max_exp
+            user.level += 1
+            next_exp = UserExp.objects.get(level=user.level).required_exp
+            user.max_exp = next_exp
+
+        user.save()
+        mission.status = "rewarded"
+        mission.save()
+
+    return HttpResponse("Mission Complete.")
 
 @login_required
 def statistic(request,chargestate):
@@ -132,7 +179,8 @@ def statistic_data(request,chargestate):
         tempDict = {}
         tempDict["name"] = cate
         tempDict["money"] = categorySum[cate]
-        dictList.append(tempDict)
+        if categorySum[cate] > 0:
+            dictList.append(tempDict)
 
     print(dictList)
     return HttpResponse(json.dumps(dictList))
