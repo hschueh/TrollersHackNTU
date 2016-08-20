@@ -86,7 +86,15 @@ def statistic_data(request,chargestate):
         if record.category.name in categorySum.keys():
             categorySum[record.category.name] += int(record.spend)
 
-    return HttpResponse(json.dumps(categorySum))
+    dictList = []
+    for cate in categorySum:
+        tempDict = {}
+        tempDict["name"] = cate
+        tempDict["money"] = categorySum[cate]
+        dictList.append(tempDict)
+
+    print(dictList)
+    return HttpResponse(json.dumps(dictList))
 
 @login_required
 def battle(request):
