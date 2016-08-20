@@ -8,11 +8,13 @@
 	var bg_pic_dict = {};
 	var pic_dict = {};
 	var gender = "{{ gender }}";
-	var dps = "{{ dps }}"
+	var dps = "{{ dps }}";
+	var maxHP = "{{ monster.hp }}";
+	var currentHP = "{{ currentHP }}"
 	bg_pic_dict.bg_ground = "{% static 'img/bg_ground.png' %}";
 	bg_pic_dict.bg_sky = "{% static 'img/bg_sky.png' %}";
 	pic_dict.boss = "{{ monster.pngFile }}";
-	pic_dict.wpn = "{% static 'img/wpn_chicken.png' %}";
+	pic_dict.wpn = "{% static 'img/wpn_ward.png' %}";
 
 </script>
 <link href="{% static 'css/battle.css' %}" rel="stylesheet">
