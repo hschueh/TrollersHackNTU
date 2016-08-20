@@ -4,12 +4,14 @@
 
 {% load staticfiles %}
 
+<script>
+	var tableData = "{{ recordDictList }}";
+</script>
+
 <link href="{% static 'css/charge.css' %}" rel="stylesheet">
 <script src="{% static 'js/charge.js' %}"></script>
 
-<script>
-	var tableData = "{{ recordList }}";
-</script>
+
 
 <div class="row">
 	<!-- <div class="col-lg-12">

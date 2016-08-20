@@ -150,6 +150,11 @@ def battle(request):
     gender = user.gender
     dps = user.dps
     equipment = None
+    sc=User_Monster.objects.filter(user_id=request.user.id)
+    if sc.count() == 0:
+        monster = Monster.objects.get(id = 1)
+        new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=datetime.datetime.now())
+        new_um.save()
     _um = User_Monster.objects.get(user_id=user.id)
     monster = _um.monster
     currentHP = _um.current_hp
@@ -243,6 +248,7 @@ def create_user(request):
 @login_required
 def create_user_submit(request):
     if request.method == "POST":
+        #Add Charge User
         post_dict = request.POST.dict()
         print("user id = ",request.user.id)
         user, created = User.objects.get_or_create(id=request.user.id)
@@ -255,6 +261,11 @@ def create_user_submit(request):
              user.max_exp = 100
              user.money = 0
         user.save()
+        sc=User_Monster.objects.filter(user_id=request.user.id)
+        if sc.count() == 0:
+            monster = Monster.objects.get(id = 1)
+            new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=datetime.datetime.now())
+            new_um.save()
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
