@@ -1,4 +1,6 @@
 import json
+import time
+import datetime
 
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -104,6 +106,40 @@ def statistic_data(request,chargestate):
 
 @login_required
 def battle(request):
+    user = User.objects.get(id=request.user.id)
+    gender = user.gender
+    dps = user.dps
+    equipment = None
+    _um = User_Monster.objects.get(user_id=user.id)
+    monster = _um.monster
+    currentHP = _um.current_hp
+    createTime = _um.createTime
+    exp_gain = 0
+    money_gain = 0
+
+    # calculate monster hp
+    now = datetime.datetime.now()
+    duration = (now-createTime).seconds
+    print("seconds = ", duration)
+
+    if duration*dps > currentHP: # defeat Boss
+        exp_gain = monster.exp
+        money_gain = monster.money
+        monster = Monster.objects.get(id = (_um.monster.id+1)%11)
+        _um.delete()
+        new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
+        new_um.save()
+        print("Defeat Boss.")
+
+    else:
+        currentHP -= duration*dps
+        _um.createTime = now
+        _um.current_hp = currentHP
+        _um.save()
+        print("Not defeat Boss.")
+
+
+
     return render_to_response('battle.html',RequestContext(request,locals()))
 
 @login_required
