@@ -1,4 +1,6 @@
 import json
+import time
+import datetime
 
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
@@ -30,8 +32,21 @@ def register(request):
 
 @login_required
 def charge(request):
-    cantback = True
-    return render_to_response('charge.html',RequestContext(request,locals()))
+    sc=User.objects.filter(id=request.user.id)
+    if sc.count() > 0:
+        cantback = True
+        user = User.objects.get(id=request.user.id)
+        records = Record.objects.filter(user_id=user.id)
+
+        recordList = []
+        for record in records:
+            if not record.category.income:
+                if record.createTime.date() == datetime.datetime.now().date():
+                    recordList.append(record)
+        return render_to_response('charge.html',RequestContext(request,locals()))
+    else :
+        cantback = True
+        return render_to_response('create_user.html',RequestContext(request,locals()))
 
 @login_required
 def missions(request):
@@ -98,6 +113,40 @@ def statistic_data(request,chargestate):
 
 @login_required
 def battle(request):
+    user = User.objects.get(id=request.user.id)
+    gender = user.gender
+    dps = user.dps
+    equipment = None
+    _um = User_Monster.objects.get(user_id=user.id)
+    monster = _um.monster
+    currentHP = _um.current_hp
+    createTime = _um.createTime
+    exp_gain = 0
+    money_gain = 0
+
+    # calculate monster hp
+    now = datetime.datetime.now()
+    duration = (now-createTime).seconds
+    print("seconds = ", duration)
+
+    if duration*dps > currentHP: # defeat Boss
+        exp_gain = monster.exp
+        money_gain = monster.money
+        monster = Monster.objects.get(id = (_um.monster.id+1)%11)
+        _um.delete()
+        new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
+        new_um.save()
+        print("Defeat Boss.")
+
+    else:
+        currentHP -= duration*dps
+        _um.createTime = now
+        _um.current_hp = currentHP
+        _um.save()
+        print("Not defeat Boss.")
+
+
+
     return render_to_response('battle.html',RequestContext(request,locals()))
 
 @login_required
@@ -111,6 +160,15 @@ def setting(request):
 @login_required
 def income(request):
     cantback = True
+    user = User.objects.get(id=request.user.id)
+    records = Record.objects.filter(user_id=user.id)
+
+    recordList = []
+    for record in records:
+        if record.category.income:
+            if record.createTime.date() == datetime.datetime.now().date():
+                recordList.append(record)
+
     return render_to_response('income.html',RequestContext(request,locals()))
 
 @login_required
@@ -147,7 +205,7 @@ def create_category(request):
 @login_required
 def create_user(request):
     cantback = True
-    return render_to_response('create_user.html',RequestContext(request,locals()))		
+    return render_to_response('create_user.html',RequestContext(request,locals()))
 
 @login_required
 def create_user_submit(request):
@@ -158,7 +216,7 @@ def create_user_submit(request):
         user.gender = post_dict['gender'] == "M"
         user.facebookID = post_dict['facebookID']
         user.token = post_dict['token']
-        if created :   
+        if created :
              user.level = 0
              user.exp = 0
              user.max_exp = 100
@@ -167,7 +225,7 @@ def create_user_submit(request):
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
-		
+
 @login_required
 def push_notify(token, title, message, postFix):
     gcm = GCM(API_KEY)
