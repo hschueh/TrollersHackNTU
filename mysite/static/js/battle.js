@@ -27,6 +27,15 @@ $(document).ready(function(){
 		'image-rendering':'optimizeQuality'
 	});
 
+	
+	var boss = svg.append("svg:image").attr({
+		'width': rect.width/370*220,
+		'height': rect.width/370*175,
+		'x': 90,
+		'y': 125 + padding_top,
+		'xlink:href': static_img_url + pic_dict['boss']
+	});
+	
 
 	var bg_ground = svg.append("svg:image").attr({
 		'width': rect.width,
@@ -35,15 +44,6 @@ $(document).ready(function(){
 		'y': 100 + padding_top,
 		'xlink:href': bg_pic_dict['bg_ground'],
 		'image-rendering':'optimizeQuality'
-	});
-
-	
-	var boss = svg.append("svg:image").attr({
-		'width': 176,
-		'height': 140,
-		'x': 90,
-		'y': 160 + padding_top,
-		'xlink:href': static_img_url + pic_dict['boss']
 	});
 
 	var wpn = svg.append("svg:image").attr({
