@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var width = 370, height = 350, radius = Math.min(width,height)/2;
 
 		var color = d3.scale.ordinal()
-		    .range(["#3399FF", "#5DAEF8", "#86C3FA", "#ADD6FB", "#D6EBFD"]);
+		    .range(["#FF79BC", "#5DAEF8", "#FF0000", "#B15BFF", "#484891","#467500","#CA8EC2","#FF8040","#844200","#4D0000","#28004D","#8E8E8E"]);
 
 		var arc = d3.svg.arc()
 		    .outerRadius(radius - 10)
@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 		legend = svg.append("g")
             .attr("class", "legend")
-            .attr("transform", "translate(50,100)")
+            .attr("transform", "translate(50,70)")
             .style("font-size", "12px")
             .call(d3.legend);
 
