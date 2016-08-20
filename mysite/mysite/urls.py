@@ -35,12 +35,13 @@ urlpatterns = [
     url(r'^accounts/setting/$',setting),
     url(r'^charge/$',charge),
     url(r'^missions/$',missions),
-    url(r'^statistic/$',statistic),
+    url(r'^statistic/(?P<chargestate>.+)/$',statistic),
     url(r'^battle/$',battle),
     url(r'^setting/$', setting),
     url(r'^income/$', income),
     url(r'^calculator/(?P<chargestate>.+)/$', calculator),
-    url(r'^create_record/$',create_record)
+    url(r'^create_record/$',create_record),
+    url(r'^statistic_data/(?P<chargestate>.+)/$',statistic_data)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

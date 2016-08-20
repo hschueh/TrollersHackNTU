@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
@@ -62,8 +64,29 @@ def missions(request):
     return render_to_response('missions.html',RequestContext(request,locals()))
 
 @login_required
-def statistic(request):
+def statistic(request,chargestate):
+
     return render_to_response('statistic.html',RequestContext(request,locals()))
+
+@login_required
+def statistic_data(request,chargestate):
+    user = User.objects.get(id=request.user.id)
+
+    if chargestate == "expense":
+        categoryList = Category.objects.filter(income=0)
+    elif chargestate == "income":
+        categoryList = Category.objects.filter(income=1)
+
+    categorySum = {}
+    for cate in categoryList:
+        categorySum[cate.name] = 0
+
+    recordList = user.record_set.all()
+    for record in recordList:
+        if record.category.name in categorySum.keys():
+            categorySum[record.category.name] += int(record.spend)
+
+    return HttpResponse(json.dumps(categorySum))
 
 @login_required
 def battle(request):
@@ -94,12 +117,10 @@ def calculator(request, chargestate):
 def create_record(request):
     if request.method == "POST":
         post_dict = request.POST.dict()
-        print("user id = ",request.user.id)
         user = User.objects.get(id=request.user.id)
         category = Category.objects.get(name=post_dict['category'])
         record = Record(user=user,category=category,spend=post_dict['spend'],currency="NTD")
         record.save()
-        print(post_dict)
         return HttpResponse("Create new record!")
     else:
         return HttpResponse("Error occured!")
