@@ -218,7 +218,7 @@ def battle(request):
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
         user.save()
-        monster = Monster.objects.get(id = (_um.monster.id+1)%11)
+        monster = Monster.objects.get(id = (_um.monster.id+1)%10+1)
         _um.delete()
         new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
         new_um.save()
@@ -317,8 +317,8 @@ def create_user_submit(request):
         return HttpResponse("Create new User!")
     else:
         return HttpResponse("Error occured!")
-		
-		
+
+
 @login_required
 def monster_dex(request):
     cantback = True
