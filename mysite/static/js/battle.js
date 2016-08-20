@@ -68,9 +68,9 @@ $(document).ready(function(){
 	});
 	
 	var btn = svg.append("svg:image").attr({
-		'width': 140,
-		'height': 140,
-		'x': 300,
+		'width': 100,
+		'height': 100,
+		'x': rect.width-100,
 		'y': 300,
 		'xlink:href': static_img_url + "btn_monsterDex.png",
 		'id':'btnMonsterDex'
