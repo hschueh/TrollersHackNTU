@@ -56,7 +56,7 @@ def charge(request):
 def date_changed(request, chargestate):
     if request.method == "POST":
         post_dict = request.POST.dict()
-        date = datetime(post_dict["yr"],post_dict["month"],post_dict["day"])
+        date = datetime(post_dict["yr"],post_dict["mon"],post_dict["day"])
         user = User.objects.get(id=request.user.id)
         records = Record.objects.filter(user_id=user.id)
 
