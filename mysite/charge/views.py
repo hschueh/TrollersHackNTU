@@ -1,12 +1,11 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required
 
 from charge.models import *
-
 
 # Create your views here.
 def index(request):
@@ -24,6 +23,7 @@ def register(request):
     return render_to_response('register.html',RequestContext(request,locals()))
 
 def charge(request):
+    cantback = True
     return render_to_response('charge.html',RequestContext(request,locals()))
 
 def missions(request):
@@ -42,12 +42,23 @@ def setting(request):
     return render_to_response('setting.html',RequestContext(request,locals()))
 
 def income(request):
+    cantback = True
     return render_to_response('income.html',RequestContext(request,locals()))
 
 def calculator(request, chargestate):
+    if chargestate == "income":
+        categoryList = Category.objects.filter(income=1)
+    else:
+        categoryList = Category.objects.filter(income=0)
     return render_to_response('calculator.html',RequestContext(request,locals()))
 
-
+def create_record(request):
+    if request.method == "POST":
+        post_data = request.POST.get("category")
+        print(post_data)
+        return HttpResponse("Create new record!")
+    else:
+        return HttpResponse("Error occured!")
 
 
 
