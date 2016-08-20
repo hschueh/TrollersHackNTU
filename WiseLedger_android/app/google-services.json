@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "1048643657326",
+    "project_id": "wiseledger"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048643657326:android:b8014deb7f5699cc",
+        "android_client_info": {
+          "package_name": "com.example.wiseledger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_q7t865uxv7lMVCdzR67PTOMye49-Vwk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
