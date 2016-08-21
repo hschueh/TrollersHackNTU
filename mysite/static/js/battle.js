@@ -63,7 +63,7 @@ $(document).ready(function(){
 		'x': 90,
 		'y': 360 + padding_top,
 		'xlink:href': function(){
-			if(gender)
+			if(parseInt(gender))
 				return static_img_url + "hero_boy.png";
 			else
 				return static_img_url + "hero_girl.png";
@@ -156,7 +156,7 @@ $(document).ready(function(){
 			currentHP = currentHP - dps;
 			now_hp_width = now_hp_width - dps*hp_width/maxHP;
 			hp.transition().attr("width", now_hp_width);
-			hp_txt.transition().attr("width", now_hp_width + 5).text(currentHP);
+			hp_txt.transition().attr("x", now_hp_width + 5).text(currentHP);
 		}
 	}, 1000);
 
