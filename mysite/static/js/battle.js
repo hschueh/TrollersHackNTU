@@ -126,6 +126,23 @@ $(document).ready(function(){
 	})
 	.text(currentHP);
 
+	var lv_txt = svg.append("text").attr({
+		"x": 10,
+		"y": height - 36,
+		"fill": "purple",
+		"font-size": "20px"
+	})
+	.text("Lv: " + level);
+
+	var exp_txt = svg.append("text").attr({
+		"x": 10,
+		"y": height - 16,
+		"fill": "purple",
+		"font-size": "16px"
+	})
+	.text("Exp: " + currentEXP + "/" + maxEXP);
+
+
 	console.log(currentEXP);
 	console.log(maxEXP);
 	console.log(level);
