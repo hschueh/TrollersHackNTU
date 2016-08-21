@@ -15,7 +15,9 @@
 	bg_pic_dict.bg_sky = "{% static 'img/bg_sky.png' %}";
 	pic_dict.boss = "{{ monster.pngFile }}";
 	pic_dict.wpn = "{{ weapon.pngFile }}";
-
+	var currentEXP = "{{ currentExp }}";
+	var maxEXP = "{{ maxExp }}";
+	var level = "{{ level }}"
 </script>
 <link href="{% static 'css/battle.css' %}" rel="stylesheet">
 <script src="{% static 'js/battle.js' %}"></script>
