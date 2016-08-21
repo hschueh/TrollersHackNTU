@@ -144,6 +144,7 @@ def mission_complete(request):
             user.level += 1
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
+            user.dps += 10
         user.save()
         mission.status = "rewarded"
         mission.save()
@@ -186,9 +187,11 @@ def statistic_data(request,chargestate):
 @login_required
 def battle(request):
     user = User.objects.get(id=request.user.id)
+    currentExp = user.exp
+    maxExp = user.max_exp
+    level = user.level
     gender = user.gender
     dps = user.dps
-    equipment = None
 
     sc2=User_Item.objects.filter(user_id=user.id)
     if sc2.count() == 0:
@@ -225,6 +228,7 @@ def battle(request):
             user.level += 1
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
+            user.dps += 10
         user.save()
         monster = Monster.objects.get(id = (_um.monster.id+1)%10+1)
         _um.delete()
