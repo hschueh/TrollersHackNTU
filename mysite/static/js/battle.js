@@ -63,7 +63,7 @@ $(document).ready(function(){
 		'x': 90,
 		'y': 360 + padding_top,
 		'xlink:href': function(){
-			if(gender)
+			if(parseInt(gender))
 				return static_img_url + "hero_boy.png";
 			else
 				return static_img_url + "hero_girl.png";
