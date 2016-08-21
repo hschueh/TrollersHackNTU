@@ -54,7 +54,7 @@ $(document).ready(function(){
 		'height': 70,
 		'x': 200,
 		'y': 380 + padding_top,
-		'xlink:href': pic_dict['wpn']
+		'xlink:href': static_img_url + pic_dict['wpn']
 	});
 
 	var hero = svg.append("svg:image").attr({

@@ -190,6 +190,15 @@ def battle(request):
     gender = user.gender
     dps = user.dps
     equipment = None
+	
+    sc2=User_Item.objects.filter(user_id=user.id)
+    if sc2.count() == 0:
+        item = Item.objects.get(id = 2)
+        new_ui = User_Item(user_id=user.id,item_id=item.id)
+        new_ui.save()
+    _ui = User_Item.objects.get(user_id=user.id)
+    weapon = _ui.item
+	
     sc=User_Monster.objects.filter(user_id=request.user.id)
     if sc.count() == 0:
         monster = Monster.objects.get(id = 1)
