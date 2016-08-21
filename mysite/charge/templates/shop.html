@@ -7,6 +7,8 @@
 <link href="{% static 'css/shop.css' %}" rel="stylesheet">
 <script src="{% static 'js/shop.js' %}"></script>
 
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}">
+
 <script>
 	var pic_dict = {};
 	var current_weapon_id = {{useritem.item_id}};
@@ -20,9 +22,9 @@
 <div id = "main_scroller"  style="overflow: hidden;width: 80%;margin: 0 auto;">
 	{% for weapon in items %}
 	{% if weapon.cost > user.money %}
-	<div class = "row_custom_cant_buy">
+	<div class = "row_custom_cant_buy" id = "weapon-{{forloop.counter}}">
 	{% else %}
-	<div class = "row_custom">
+	<div class = "row_custom" id = "weapon-{{forloop.counter}}">
     {% endif %}
 	{{weapon.name}}
 	<img class="pics" src="/static/img/{{ weapon.pngFile }}"></img>
