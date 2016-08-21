@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 		legend = svg.append("g")
             .attr("class", "legend")
-            .attr("transform", "translate(50,70)")
+            .attr("transform", "translate(50,100)")
             .style("font-size", "12px")
             .call(d3.legend);
 
