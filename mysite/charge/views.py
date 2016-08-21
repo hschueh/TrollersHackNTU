@@ -192,7 +192,7 @@ def battle(request):
 	
     sc2=User_Item.objects.filter(user_id=user.id)
     if sc2.count() == 0:
-        item = Item.objects.get(id = 2)
+        item = Item.objects.get(id = 1)
         new_ui = User_Item(user_id=user.id,item_id=item.id)
         new_ui.save()
     _ui = User_Item.objects.get(user_id=user.id)
@@ -276,10 +276,13 @@ def calculator(request, chargestate):
 @login_required
 def change_item(request):
     if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
         post_dict = request.POST.dict()
         ui = User_Item.objects.get(user_id=request.user.id)
-        item = Item.objects.get(id=int(post_dict["id"]))
-        ui.item = item
+        user.dps -= ui.item.attack
+        newItem = Item.objects.get(id=int(post_dict["id"]))
+        user.dps += newItem.attack
+        ui.item = newItem
         ui.save()
     return HttpResponse("Change Item.")
 
