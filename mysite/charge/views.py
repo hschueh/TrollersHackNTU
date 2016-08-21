@@ -312,7 +312,7 @@ def create_category(request):
     if request.method == "POST":
         post_dict = request.POST.dict()
         user = User.objects.get(id=request.user.id)
-        category = Category(name=post_dict['name'],income=post_dict['income'])
+        category = Category(name=post_dict['name'],income=int(post_dict['income']))
         category.save()
         return HttpResponse("Create new category!")
     else:
