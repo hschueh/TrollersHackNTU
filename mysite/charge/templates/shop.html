@@ -12,6 +12,7 @@
 <script>
 	var pic_dict = {};
 	var current_weapon_id = {{useritem.item_id}};
+	var user_money = {{user_money}};
 </script>
 
 <div>
@@ -21,7 +22,7 @@
 </div>
 <div id = "main_scroller"  style="overflow: hidden;width: 80%;margin: 0 auto;">
 	{% for weapon in items %}
-	{% if weapon.cost > user.money %}
+	{% if weapon.cost > user_money %}
 	<div class = "row_custom_cant_buy" id = "weapon-{{forloop.counter}}">
 	{% else %}
 	<div class = "row_custom" id = "weapon-{{forloop.counter}}">

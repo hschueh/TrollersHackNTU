@@ -380,6 +380,7 @@ def shop(request):
         new_ui = User_Item(user_id=user.id,item_id=item.id)
         new_ui.save()
     useritem = User_Item.objects.get(user_id=user.id)
+    user_money = user.money
     items = Item.objects.all()
     return render_to_response('shop.html',RequestContext(request,locals()))
 
