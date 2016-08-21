@@ -25,10 +25,10 @@ class Record(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length = 100)
-    itemType = models.CharField(max_length = 10,default="equipment")
+    #itemType = models.CharField(max_length = 10,default="equipment")
     attack = models.DecimalField(max_digits=5,decimal_places=0)
     duration = models.DecimalField(max_digits=3,decimal_places=0,default=0)
-    expiredTime = models.DateTimeField(blank=True,default="0")
+    #expiredTime = models.DateTimeField(blank=True,default="0")
     cost = models.DecimalField(max_digits=5,decimal_places=0,default=0)
     pngFile = models.CharField(max_length = 200,default="")
 
