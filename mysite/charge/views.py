@@ -349,6 +349,18 @@ def push_notify(token, title, message, postFix):
     response = gcm.json_request(registration_ids=registration_ids,data=notification,collapse_key='awesomeapp',restricted_package_name=PKG_NAME,priority='high',delay_while_idle=False)
 
 
+@login_required
+def shop(request):
+    cantback = True
+    user = User.objects.get(id=request.user.id)
+    sc=User_Item.objects.filter(user_id=user.id)
+    if sc.count() == 0:
+        item = Item.objects.get(id = 1)
+        new_ui = User_Item(user_id=user.id,item_id=item.id)
+        new_ui.save()
+    useritem = User_Item.objects.get(user_id=user.id)
+    items = Item.objects.all()
+    return render_to_response('shop.html',RequestContext(request,locals()))
 
 
 

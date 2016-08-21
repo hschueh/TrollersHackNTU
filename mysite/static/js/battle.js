@@ -84,6 +84,21 @@ $(document).ready(function(){
 		window.location.href = "/monster_dex/";
 	});
 
+	var btn = svg.append("svg:image").attr({
+		'width': 100,
+		'height': 100,
+		'x': 0,
+		'y': 300,
+		'xlink:href': static_img_url + "btn_blacksmith.png",
+		'id':'btnblacksmith'
+	});
+	
+	
+	$('#btnblacksmith').click(function(){
+		window.location.href = "/shop/";
+	});
+
+
 	window.setInterval(function(){
 		hero.transition().duration(250).attr("y", 360 + padding_top - 20)
 		.each("end", function(){

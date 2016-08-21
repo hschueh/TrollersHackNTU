@@ -49,7 +49,8 @@ urlpatterns = [
     url(r'^mission_complete/$',mission_complete),
     url(r'^change_item/$',change_item),
     url(r'^create_user_submit/$',create_user_submit),
-    url(r'^date_changed/(?P<chargestate>.+)/$',date_changed)
+    url(r'^date_changed/(?P<chargestate>.+)/$',date_changed),
+    url(r'^shop/$',shop)
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
