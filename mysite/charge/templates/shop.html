@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block title %} Wise Ledger {%endblock%}
+{% block content %}
+
+{% load staticfiles %}
+
+<link href="{% static 'css/shop.css' %}" rel="stylesheet">
+<script src="{% static 'js/shop.js' %}"></script>
+
+<script>
+	var pic_dict = {};
+	var current_weapon_id = {{useritem.item_id}};
+</script>
+
+<div>
+  <a href="/battle/">
+      <img width = "39px" style="display:table" src="{% static 'img/btn_back.png' %}">
+  </a>
+</div>
+<div id = "main_scroller"  style="overflow: hidden;width: 80%;margin: 0 auto;">
+	{% for weapon in items %}
+	{% if weapon.cost > user.money %}
+	<div class = "row_custom_cant_buy">
+	{% else %}
+	<div class = "row_custom">
+    {% endif %}
+	{{weapon.name}}
+	<img class="pics" src="/static/img/{{ weapon.pngFile }}"></img>
+	</div>
+	{% endfor %}
+</div>
+
+{%endblock%}
