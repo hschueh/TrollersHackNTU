@@ -152,7 +152,6 @@ def mission_complete(request):
 
 @login_required
 def statistic(request,chargestate):
-
     return render_to_response('statistic.html',RequestContext(request,locals()))
 
 @login_required
@@ -273,6 +272,16 @@ def calculator(request, chargestate):
     else:
         categoryList = Category.objects.filter(income=0)
     return render_to_response('calculator.html',RequestContext(request,locals()))
+
+@login_required
+def change_item(request):
+    if request.method == "POST":
+        post_dict = request.POST.dict()
+        ui = User_Item.objects.get(user_id=request.user.id)
+        item = Item.objects.get(id=int(post_dict["id"]))
+        ui.item = item
+        ui.save()
+    return HttpResponse("Change Item.")
 
 @login_required
 def create_record(request):
