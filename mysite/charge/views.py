@@ -208,6 +208,7 @@ def battle(request):
         new_um.save()
     _um = User_Monster.objects.get(user_id=user.id)
     monster = _um.monster
+    maxHp = monster.hp
     currentHP = _um.current_hp
     createTime = _um.createTime
     exp_gain = 0
@@ -230,7 +231,10 @@ def battle(request):
             user.max_exp = next_exp
             user.dps += 10
         user.save()
-        monster = Monster.objects.get(id = (_um.monster.id+1)%10+1)
+        nextMonsterID = _um.monster.id+1
+        if nextMonsterID == 11:
+            nextMonsterID = 1
+        monster = Monster.objects.get(id = nextMonsterID)
         _um.delete()
         new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
         new_um.save()
