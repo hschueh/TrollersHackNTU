@@ -8,11 +8,6 @@
 <script src="{% static 'js/index.js' %}"></script>
 
 <script type="text/javascript" charset="utf-8">
-function setGCMToken(token){
-    localStorage.setItem("gcmToken", token);
-	// $("#testlocalstorage").append("gcmToken = " + localStorage.getItem("gcmToken")); for debug
-}              
-
 "{% if request.user.is_authenticated %}"
 window.location.href = "/charge/";
 "{% endif %}"                                                                                

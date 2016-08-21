@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     MainActivity m_context = this;
     String token = "";
     Boolean m_firstTime = true;
-    String BASE_URL = "http://140.112.21.19:8000/";
-    // "http://1.34.217.78:3000/"
+    //String BASE_URL = "http://1.34.217.78:3002/";
+    String BASE_URL =  "http://140.112.21.19:8000/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +136,9 @@ public class MainActivity extends AppCompatActivity {
                     //Getting the registration token from the intent
                     token = intent.getStringExtra("token");
                     //Displaying the token as toast
-                    Toast.makeText(getApplicationContext(), "Registration token:" + token, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Registration token:" + token, Toast.LENGTH_LONG).show();
+
+
                     //if the intent is not with success then displaying error messages
                     m_webView.loadUrl("javascript:setGCMToken(\""+token+"\");");
                     m_firstTime = false;
