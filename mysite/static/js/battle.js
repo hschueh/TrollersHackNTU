@@ -125,6 +125,10 @@ $(document).ready(function(){
 		"fill": "orange"
 	})
 	.text(currentHP);
+
+	console.log(currentEXP);
+	console.log(maxEXP);
+	console.log(level);
 	
 	window.setInterval(function(){
 
