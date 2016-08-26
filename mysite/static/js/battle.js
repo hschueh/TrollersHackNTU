@@ -54,7 +54,11 @@ $(document).ready(function(){
 		'height': 70,
 		'x': 200,
 		'y': 380 + padding_top,
+<<<<<<< HEAD
 		'xlink:href': pic_dict['wpn']
+=======
+		'xlink:href': static_img_url + pic_dict['wpn']
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 	});
 
 	var hero = svg.append("svg:image").attr({
@@ -63,7 +67,11 @@ $(document).ready(function(){
 		'x': 90,
 		'y': 360 + padding_top,
 		'xlink:href': function(){
+<<<<<<< HEAD
 			if(gender)
+=======
+			if(parseInt(gender))
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 				return static_img_url + "hero_boy.png";
 			else
 				return static_img_url + "hero_girl.png";
@@ -125,6 +133,30 @@ $(document).ready(function(){
 		"fill": "orange"
 	})
 	.text(currentHP);
+<<<<<<< HEAD
+=======
+
+	var lv_txt = svg.append("text").attr({
+		"x": 10,
+		"y": height - 36,
+		"fill": "purple",
+		"font-size": "20px"
+	})
+	.text("Lv: " + level);
+
+	var exp_txt = svg.append("text").attr({
+		"x": 10,
+		"y": height - 16,
+		"fill": "purple",
+		"font-size": "16px"
+	})
+	.text("Exp: " + currentEXP + "/" + maxEXP);
+
+
+	console.log(currentEXP);
+	console.log(maxEXP);
+	console.log(level);
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 	
 	window.setInterval(function(){
 
@@ -135,7 +167,11 @@ $(document).ready(function(){
 			currentHP = currentHP - dps;
 			now_hp_width = now_hp_width - dps*hp_width/maxHP;
 			hp.transition().attr("width", now_hp_width);
+<<<<<<< HEAD
 			hp_txt.transition().attr("width", now_hp_width + 5).text(currentHP);
+=======
+			hp_txt.transition().attr("x", now_hp_width + 5).text(currentHP);
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 		}
 	}, 1000);
 

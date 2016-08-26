@@ -144,6 +144,10 @@ def mission_complete(request):
             user.level += 1
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
+<<<<<<< HEAD
+=======
+            user.dps += 10
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
         user.save()
         mission.status = "rewarded"
         mission.save()
@@ -152,7 +156,10 @@ def mission_complete(request):
 
 @login_required
 def statistic(request,chargestate):
+<<<<<<< HEAD
 
+=======
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     return render_to_response('statistic.html',RequestContext(request,locals()))
 
 @login_required
@@ -187,9 +194,26 @@ def statistic_data(request,chargestate):
 @login_required
 def battle(request):
     user = User.objects.get(id=request.user.id)
+<<<<<<< HEAD
     gender = user.gender
     dps = user.dps
     equipment = None
+=======
+    currentExp = user.exp
+    maxExp = user.max_exp
+    level = user.level
+    gender = user.gender
+    dps = user.dps
+
+    sc2=User_Item.objects.filter(user_id=user.id)
+    if sc2.count() == 0:
+        item = Item.objects.get(id = 1)
+        new_ui = User_Item(user_id=user.id,item_id=item.id)
+        new_ui.save()
+    _ui = User_Item.objects.get(user_id=user.id)
+    weapon = _ui.item
+
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     sc=User_Monster.objects.filter(user_id=request.user.id)
     if sc.count() == 0:
         monster = Monster.objects.get(id = 1)
@@ -197,6 +221,10 @@ def battle(request):
         new_um.save()
     _um = User_Monster.objects.get(user_id=user.id)
     monster = _um.monster
+<<<<<<< HEAD
+=======
+    maxHp = monster.hp
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     currentHP = _um.current_hp
     createTime = _um.createTime
     exp_gain = 0
@@ -217,8 +245,17 @@ def battle(request):
             user.level += 1
             next_exp = UserExp.objects.get(level=user.level).required_exp
             user.max_exp = next_exp
+<<<<<<< HEAD
         user.save()
         monster = Monster.objects.get(id = (_um.monster.id+1)%10+1)
+=======
+            user.dps += 10
+        user.save()
+        nextMonsterID = _um.monster.id+1
+        if nextMonsterID == 11:
+            nextMonsterID = 1
+        monster = Monster.objects.get(id = nextMonsterID)
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
         _um.delete()
         new_um = User_Monster(user_id=user.id,monster_id=monster.id,current_hp=monster.hp,createTime=now)
         new_um.save()
@@ -266,6 +303,23 @@ def calculator(request, chargestate):
     return render_to_response('calculator.html',RequestContext(request,locals()))
 
 @login_required
+<<<<<<< HEAD
+=======
+def change_item(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        post_dict = request.POST.dict()
+        ui = User_Item.objects.get(user_id=request.user.id)
+        user.dps -= ui.item.attack
+        newItem = Item.objects.get(id=int(post_dict["id"]))
+        user.dps += newItem.attack
+        user.save()
+        ui.item = newItem
+        ui.save()
+    return HttpResponse("Change Item.")
+
+@login_required
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 def create_record(request):
     if request.method == "POST":
         post_dict = request.POST.dict()
@@ -282,7 +336,11 @@ def create_category(request):
     if request.method == "POST":
         post_dict = request.POST.dict()
         user = User.objects.get(id=request.user.id)
+<<<<<<< HEAD
         category = Category(name=post_dict['name'],income=post_dict['income'])
+=======
+        category = Category(name=post_dict['name'],income=int(post_dict['income']))
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
         category.save()
         return HttpResponse("Create new category!")
     else:
@@ -350,6 +408,10 @@ def shop(request):
         new_ui = User_Item(user_id=user.id,item_id=item.id)
         new_ui.save()
     useritem = User_Item.objects.get(user_id=user.id)
+<<<<<<< HEAD
+=======
+    user_money = user.money
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     items = Item.objects.all()
     return render_to_response('shop.html',RequestContext(request,locals()))
 

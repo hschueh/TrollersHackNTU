@@ -7,9 +7,18 @@
 <link href="{% static 'css/shop.css' %}" rel="stylesheet">
 <script src="{% static 'js/shop.js' %}"></script>
 
+<<<<<<< HEAD
 <script>
 	var pic_dict = {};
 	var current_weapon_id = {{useritem.item_id}};
+=======
+<input type="hidden" id="csrf-var" name="variable" value="{{csrf_token}}">
+
+<script>
+	var pic_dict = {};
+	var current_weapon_id = {{useritem.item_id}};
+	var user_money = {{user_money}};
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
 </script>
 
 <div>
@@ -19,10 +28,17 @@
 </div>
 <div id = "main_scroller"  style="overflow: hidden;width: 80%;margin: 0 auto;">
 	{% for weapon in items %}
+<<<<<<< HEAD
 	{% if weapon.cost > user.money %}
 	<div class = "row_custom_cant_buy">
 	{% else %}
 	<div class = "row_custom">
+=======
+	{% if weapon.cost > user_money %}
+	<div class = "row_custom_cant_buy" id = "weapon-{{forloop.counter}}">
+	{% else %}
+	<div class = "row_custom" id = "weapon-{{forloop.counter}}">
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     {% endif %}
 	{{weapon.name}}
 	<img class="pics" src="/static/img/{{ weapon.pngFile }}"></img>

@@ -47,6 +47,10 @@ urlpatterns = [
     url(r'^create_user/$',create_user),
     url(r'^mission_data/$',mission_data),
     url(r'^mission_complete/$',mission_complete),
+<<<<<<< HEAD
+=======
+    url(r'^change_item/$',change_item),
+>>>>>>> ebb98c624dd1af0cd751f21274747ba99af57a44
     url(r'^create_user_submit/$',create_user_submit),
     url(r'^date_changed/(?P<chargestate>.+)/$',date_changed),
     url(r'^shop/$',shop)
